@@ -41,4 +41,13 @@ public class OrderServiceImpl implements OrderService {
         order = repository.save(order);
         return new OrderDto(order);
     }
+
+    @Override
+    @Transactional
+    public OrderDto updateDelivery(Long id) {
+       Order order = repository.getReferenceById(id);
+       order.setStatus(OrderStatus.DELIVERED);
+       order= repository.save(order);
+       return new OrderDto(order);
+    }
 }

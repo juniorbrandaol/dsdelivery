@@ -27,4 +27,11 @@ public class OrderController {
        return service.insert(dto);
     }
 
+    @PutMapping("/{id}/delivered")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderDto updateDelivery(@PathVariable Long id){
+        OrderDto dto =service.updateDelivery(id);
+        return dto;
+    }
+
 }
