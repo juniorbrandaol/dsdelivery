@@ -17,3 +17,12 @@
   color: #FFFFFF;
   margin-left: 15px;
 }
+.company-name{
+  font-size: 15px;
+  line-height: 33px;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+  margin-left: 15px;
+  position: absolute;
+  right: 25px;
+}

@@ -6,6 +6,7 @@ function Navbar(){
    <nav className="main-navbar">
       <Logo/>
       <a href='home' className='logo-text'>DS Delivery</a>
+      <a href='https://github.com/juniorbrandaol' className='company-name'> By @juniorBrandaol</a>
    </nav>
   )
 }
