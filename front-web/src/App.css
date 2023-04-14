@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+/*variável criada que será acessada em qualquer lugar da aplicação(raiz da aplicação)*/
+:root {
+  --primary-color: #da5c5c;
+  --primary-hover-color: #a74b4b;
+  --dark-color: #263238;
+  --secondary-color: #9E9E9E;
+  --light-color: #F5F5F5;
+}
+/*Retira todas as margens e paddings do layout html */
+html, body {
+  margin: 0;
+  padding:0;
+}
+
+/* a fonte que está sendo setada */
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+/*Retira o under-laine de todas as tgs 'a' */
+a {
+  text-decoration: none;
+}
