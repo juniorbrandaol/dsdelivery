@@ -9,10 +9,13 @@ import './styles.css';
 import userService from "../../apiServices/api";
 
 import { toast } from "react-toastify";
+import Location from '../Location';
+import { LocationData } from '../../models/Location';
 
 function Order(){
 
   const [products,setProducts] = useState<Product[]>([]);
+  const [location, setLocation] = useState<LocationData>();
 
   useEffect(()=>{
     fetchProducts();
@@ -22,7 +25,7 @@ function Order(){
      try{
         await userService.findAllProducts().then(response=>{
             setProducts(response.data);
-            toast.info("Sms enviado com sucesso.") ;
+            //toast.info("Sms enviado com sucesso.") ;
         })
      }
      catch(error){
@@ -34,6 +37,7 @@ function Order(){
    <div className='orders-container'>
       <StepsHeader/>
       <ProductList products={products}/>
+      <Location onchangeLocation={location=>setLocation(location)}/>
    </div>
   )
 }

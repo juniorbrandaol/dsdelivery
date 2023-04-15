@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const BASE_URL = "http://192.168.1.8:8080";
+const mapboxToken=process.env.REACT_APP_ACCESS_TOKEN_MAP_BOX;
 
 class UserService {
-
 
     /********************* PRODUCTS ******************/ 
     
@@ -27,13 +27,23 @@ class UserService {
                 return Promise.reject(error)
               } else { 
                 // anything else 
-                return Promise.reject('nothing')
+                return Promise.reject(error)
               } 
-          
         })
     }
 
+    async fetchLocalMapBox(local:string){
+       return axios({
+            url:`https://api.mapbox.com/geocoding/v5/mapbox.places/${local}.json?access_token=${mapboxToken}`,
+            method: "GET",
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => { 
+            return Promise.reject(error)
+        })
+      
+   }
 }
 
-const userService = new UserService()
+const userService = new UserService();
 export default userService;
