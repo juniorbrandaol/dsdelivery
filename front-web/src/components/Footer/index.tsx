@@ -18,6 +18,7 @@ function Footer(){
            <Github/>
          </a>
        </div>
+       By EBLJ
     </footer>
   )
 }
