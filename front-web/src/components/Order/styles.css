@@ -1,6 +1,7 @@
 .orders-container {
   background-color: var(--light-color);
   margin-bottom: 30px;
+ 
 }
 
 .orders-container h3 {
@@ -34,6 +35,7 @@
 .steps-items {
   list-style-type: none;
   margin-top: 25px;
+  
 }
 
 .steps-items li {
@@ -42,6 +44,7 @@
   line-height: 25px;
   letter-spacing: -0.015em;
   color: var(--secondary-color);
+  
 
 }
 
@@ -60,6 +63,7 @@
 .orders-list-container {
   display: flex;
   justify-content: center;
+  
 }
 
 .orders-list-items {
@@ -67,7 +71,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 235px);
   grid-gap: 20px 15px;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
+  justify-content: center;
 }
 
 .order-card-container {

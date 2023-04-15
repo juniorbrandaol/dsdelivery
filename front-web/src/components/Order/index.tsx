@@ -26,7 +26,7 @@ function Order(){
         })
      }
      catch(error){
-       toast.info("Erro.") ;
+       toast.info("Erro: " + error) ;
      }
   }
 
