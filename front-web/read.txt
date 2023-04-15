@@ -1,8 +1,0 @@
-obs sobre pacotes instalados:
-1 - react-toastify lib para estilizar mensagens 
-2 - react-leaflet lib para renderizar mapas
-3 - react-router-dom lib para criação de rotas
-
-Acesso para o mapBox:
-  1 - loging: juniorbrandao
-  2 - senha : ********(meninos)
