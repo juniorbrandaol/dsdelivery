@@ -18,7 +18,6 @@ public class OrderDto {
     private Double longitude;
     private Instant moment;
     private OrderStatus status;
-    @NotBlank(message = "Campo obrigatório.")
     private List<ProductDto> products = new ArrayList<>();
 
     public OrderDto(){}

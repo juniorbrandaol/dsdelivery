@@ -1,12 +1,11 @@
 import {formatPrice} from '../../utils/Formatters'
+import { Link } from 'react-router-dom';
 
 type Props={
   amount: number;
   totalPrice: number;
   onSubmit : ()=> void;
 }
-
-
 
 function OrderSummary({amount,totalPrice,onSubmit}:Props){
 
@@ -23,12 +22,17 @@ function OrderSummary({amount,totalPrice,onSubmit}:Props){
                   VALOR TOTAL
                </span>
            </div>
-           <button 
-               className="order-summary-make-order"
-               onClick={onSubmit}
-            >
+           {/*
+           <Link to='/orderDetails' className='order-summary-make-order'>
                FAZER PEDIDO
-           </button>
+            </Link>
+            **/}
+            <button 
+              className="order-summary-make-order"
+              onClick={onSubmit}
+            >
+              FAZER PEDIDO
+            </button>
          </div>
       </div>
     )
