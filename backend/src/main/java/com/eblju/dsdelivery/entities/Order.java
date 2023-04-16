@@ -15,11 +15,17 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private Double latitude;
+    @Column(nullable = false)
     private Double longitude;
+    @Column(nullable = false)
     private Instant moment;
+    @Column(nullable = false)
     private OrderStatus status;
+    @Column(nullable = false)
     @ManyToMany
     @JoinTable(name = "tb_order_product",
        joinColumns =  @JoinColumn(name = "order_id"),

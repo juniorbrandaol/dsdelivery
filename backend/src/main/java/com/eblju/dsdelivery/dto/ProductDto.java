@@ -2,14 +2,19 @@ package com.eblju.dsdelivery.dto;
 
 import com.eblju.dsdelivery.entities.Product;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 public class ProductDto {
 
     private Long id;
+    @NotBlank(message = "Campo obrigatório.")
     private String name;
+    @NotBlank(message = "Campo obrigatório.")
     private Double price;
+    @NotBlank(message = "Campo obrigatório.")
     private String description;
+    @NotBlank(message = "Campo obrigatório.")
     private String imageUri;
 
     public ProductDto(){}

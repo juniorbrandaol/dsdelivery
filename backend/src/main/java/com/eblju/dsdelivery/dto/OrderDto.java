@@ -3,6 +3,7 @@ package com.eblju.dsdelivery.dto;
 import com.eblju.dsdelivery.entities.Order;
 import com.eblju.dsdelivery.enuns.OrderStatus;
 
+import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,13 @@ import java.util.stream.Collectors;
 public class OrderDto {
 
     private Long id;
+    @NotBlank(message = "Campo obrigatório.")
     private String address;
     private Double latitude;
     private Double longitude;
     private Instant moment;
     private OrderStatus status;
+    @NotBlank(message = "Campo obrigatório.")
     private List<ProductDto> products = new ArrayList<>();
 
     public OrderDto(){}
