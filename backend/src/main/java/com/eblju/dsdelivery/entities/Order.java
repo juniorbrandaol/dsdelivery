@@ -95,6 +95,13 @@ public class Order {
         return products;
     }
 
+    public Double getTotal(){
+        double sum = 0.0;
+        for (Product p:products){
+            sum+=p.getPrice();
+        }
+        return sum;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
