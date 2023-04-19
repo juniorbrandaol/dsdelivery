@@ -2,8 +2,10 @@ package com.eblju.dsdelivery.controllers.exceptions;
 
 import java.time.Instant;
 
-import com.eblj.catalog.services.exceptions.ForbiddenException;
-import com.eblj.catalog.services.exceptions.UnauthorizedException;
+import com.eblju.dsdelivery.rest.services.exceptions.DataBaseException;
+import com.eblju.dsdelivery.rest.services.exceptions.ForbiddenException;
+import com.eblju.dsdelivery.rest.services.exceptions.ResourceNotFoundException;
+import com.eblju.dsdelivery.rest.services.exceptions.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -12,9 +14,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import com.eblj.catalog.services.exceptions.DataBaseException;
-import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 
 @RestControllerAdvice //permite que essa classe intercepte exceçoes que aconteçam nos controles(resource)
 public class ResourceExceptionHandeler {

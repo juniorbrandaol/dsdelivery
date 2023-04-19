@@ -1,6 +1,7 @@
 package com.eblju.dsdelivery.rest.services.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 import com.eblju.dsdelivery.dto.RoleDTO;
@@ -27,13 +28,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder encoder;
-
 	@Autowired
 	private UserRepository repository;
-
 	@Autowired
 	private RoleRepository roleRepository;
-
 	@Override
 	@Transactional
 	public UserDTO save(UserInsertDTO dto) {
@@ -42,6 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 	}
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -97,6 +96,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			return userDetails;
 		}
 		throw new SenhaInvalidaException();
+	}
+	@Override
+	@Transactional(readOnly = true)
+	public List<UserDTO> findAll() {
+		List<User> user = repository.findAll();
+		return user.stream().map(obj-> new UserDTO(obj)).collect(Collectors.toList());
 	}
 
 }

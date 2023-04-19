@@ -29,9 +29,9 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig  {
 
-    private static final String[] PUBLIC ={"/users/auth","/products/**","/orders/**","/users/save","/h2-console/**"};
-    private static final String[] OPERATOR_OR_ADMIN ={"/products/**"};
-    private static final String[]  ADMIN ={"/users/**","/products/**","/orders/**"};
+    private static final String[] PUBLIC ={"/users/auth","/products","/orders/**","/users/save","/h2-console/**"};
+    private static final String[] OPERATOR_OR_ADMIN ={"/companies/**","/orders/**"};
+    private static final String[]  ADMIN ={"/users/**","/orders/**"};
     private static final String[] SWAGGER = {
             "/v2/api-docs/**",
             "/swagger-resources",
@@ -62,21 +62,19 @@ public class SecurityConfig  {
     }
     @Bean
     public UserDetailsService userDetailsService(AuthenticationManagerBuilder aut) throws Exception {
-
         aut
-                .userDetailsService(userServiceImpl)
-                .passwordEncoder(passwordEncoder());
+           .userDetailsService(userServiceImpl)
+           .passwordEncoder(passwordEncoder());
         return aut.getDefaultUserDetailsService();
 
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         //H2
         if(Arrays.asList(env.getActiveProfiles()).contains("test")){
             http.headers().frameOptions().disable();
             http.authorizeRequests()
-                    .requestMatchers("/h2-console/**").permitAll();
+            .requestMatchers("/h2-console/**").permitAll();
         }
         http
        .authorizeRequests()
