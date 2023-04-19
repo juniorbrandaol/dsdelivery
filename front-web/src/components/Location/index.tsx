@@ -4,19 +4,15 @@
   UTILIZO A API DA MAPBOX PARA TAL.
 */
 import AsyncSelect from 'react-select/async';
-import { MapContainer, TileLayer, Marker,Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker,Popup,useMapEvents } from 'react-leaflet'
+
 //API
 import userService from "../../apiServices/api";
 
 import './styles.css';
 import { useState } from "react";
 import { LocationData } from '../../models/Location';
-
-/*Inicial latitude e longitude statáticas */
-const initialPosition = {
-  lat: -7.0243115,
-  lng: -37.271039
-}  
+import { latLng } from 'leaflet';
 
 type Place={
    label?:string;
@@ -33,10 +29,35 @@ type Props={
 
 function Location({onchangeLocation}:Props){
 
+  const [latlng,setLatlng]= useState([-7.0243115,-37.271039]);
+ 
+  /*Inicial latitude e longitude statáticas */
+  const initialPosition = {
+    lat:  latlng[0],  //-7.0243115,
+    lng:  latlng[1]//-37.271039
+  }  
   const [address,setAddress]= useState<Place>({
+     label:'Loja',
+     value:'teste',
      position:initialPosition
   });
-  
+
+  function MyComponent() {
+    
+    const map = useMapEvents({
+      click: () => {
+        map.locate()
+      },
+      locationfound: (location) => {
+     //   address.position=location.latlng;
+        map.flyTo(location.latlng, map.getZoom())
+        address.position=location.latlng;
+        setLatlng([location.latlng.lat,location.latlng.lng]);
+      },
+    })
+    return null
+  }
+
   const loadOptions = async (inputValue: string, callback: (places: Place[]) => void) => {
     const response = await userService.fetchLocalMapBox(inputValue);
   
@@ -63,6 +84,8 @@ function Location({onchangeLocation}:Props){
     });
   };
 
+
+
   return (
    <div className='location-container'>
       <div className="location-content">
@@ -83,6 +106,7 @@ function Location({onchangeLocation}:Props){
               key={address.position.lat}
               scrollWheelZoom={false}
          >
+              <MyComponent/>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -92,6 +116,7 @@ function Location({onchangeLocation}:Props){
                   {address.label}
                 </Popup>
               </Marker>
+            
             </MapContainer>
       </div>
    </div>

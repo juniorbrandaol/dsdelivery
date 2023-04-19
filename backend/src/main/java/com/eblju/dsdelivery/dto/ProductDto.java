@@ -2,7 +2,7 @@ package com.eblju.dsdelivery.dto;
 
 import com.eblju.dsdelivery.entities.Product;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.util.Objects;
 
 public class ProductDto {

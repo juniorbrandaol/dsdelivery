@@ -4,9 +4,11 @@ import com.eblju.dsdelivery.dto.OrderDto;
 import com.eblju.dsdelivery.dto.ProductDto;
 import com.eblju.dsdelivery.entities.Order;
 import com.eblju.dsdelivery.entities.Product;
+import com.eblju.dsdelivery.entities.User;
 import com.eblju.dsdelivery.enuns.OrderStatus;
 import com.eblju.dsdelivery.repositories.OrderRepository;
 import com.eblju.dsdelivery.repositories.ProductRepository;
+import com.eblju.dsdelivery.repositories.UserRepository;
 import com.eblju.dsdelivery.rest.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private OrderRepository repository;
     @Autowired
@@ -33,11 +37,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDto insert(OrderDto obj) {
-        Order order = new Order(null,obj.getAddress(),obj.getLatitude(),obj.getLongitude(), Instant.now(), OrderStatus.PENDING);
+
+        Long idCliente = obj.getClient();
+        User user = userRepository
+                .findById(idCliente)
+                .orElseThrow(()->new  RuntimeException("Usuário não encontrado "+idCliente ) );
+        Order order = new Order(null,user,obj.getAddress(),obj.getLatitude(),obj.getLongitude(), Instant.now(), OrderStatus.PENDING);
         for(ProductDto p: obj.getProducts()){
             Product product = productRepository.getReferenceById(p.getId());
             order.getProducts().add(product);
         }
+        order.setClient(user);
         order = repository.save(order);
         return new OrderDto(order);
     }

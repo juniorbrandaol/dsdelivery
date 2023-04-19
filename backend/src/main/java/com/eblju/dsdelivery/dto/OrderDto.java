@@ -3,7 +3,8 @@ package com.eblju.dsdelivery.dto;
 import com.eblju.dsdelivery.entities.Order;
 import com.eblju.dsdelivery.enuns.OrderStatus;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.stream.Collectors;
 public class OrderDto {
 
     private Long id;
+    @NotNull(message = "Informe o código do cliente")
+    private Long client;
     @NotBlank(message = "Campo obrigatório.")
     private String address;
     private Double latitude;
@@ -23,9 +26,10 @@ public class OrderDto {
 
     public OrderDto(){}
 
-    public OrderDto(Long id, String address, Double latitude, Double longitude,
+    public OrderDto(Long id,Long client, String address, Double latitude, Double longitude,
                     Instant moment, OrderStatus status,Double total) {
         this.id = id;
+        this.client = client;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -42,6 +46,7 @@ public class OrderDto {
         moment = entity.getMoment();
         status = entity.getStatus();
         total = entity.getTotal();
+        client = entity.getClient().getId();
         products= entity.getProducts()
                         .stream()
                         .map( obj-> new ProductDto(obj)).collect(Collectors.toList());
@@ -55,6 +60,12 @@ public class OrderDto {
         this.id = id;
     }
 
+    public Long getClient() {
+        return client;
+    }
+    public void setCliente(Long client) {
+        this.client = client;
+    }
     public String getAddress() {
         return address;
     }

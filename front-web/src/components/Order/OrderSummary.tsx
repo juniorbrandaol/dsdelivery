@@ -1,13 +1,13 @@
 import {formatPrice} from '../../utils/Formatters'
-import { Link } from 'react-router-dom';
 
 type Props={
   amount: number;
   totalPrice: number;
+  address : string;
   onSubmit : ()=> void;
 }
 
-function OrderSummary({amount,totalPrice,onSubmit}:Props){
+function OrderSummary({amount,totalPrice,address,onSubmit}:Props){
 
     return(
       <div className="order-summary-container">
@@ -20,6 +20,13 @@ function OrderSummary({amount,totalPrice,onSubmit}:Props){
                <span className="order-summer-total">
                   <strong className="amount-selected">  {formatPrice(totalPrice,'BRL',2)}</strong>
                   VALOR TOTAL
+               </span>
+               
+           </div>
+           <div>
+           <span className="order-summer-total">
+                  <strong className="address-selected">ENDEREÇO DA LOJA: </strong>
+                   {address}
                </span>
            </div>
            {/*

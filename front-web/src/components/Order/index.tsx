@@ -15,19 +15,23 @@ import OrderSummary from './OrderSummary';
 import Footer from '../Footer';
 import { checkIsSelected } from './helpers';
 
+
 function Order(){
 
   const [products,setProducts] = useState<Product[]>([]);
   const [selectedProducts,setSelectedProducts] = useState<Product[]>([]);
   const [location, setLocation] = useState<LocationData>();
+  const [company,setCompany] = useState('');
+  const [address,setAddress]= useState('');
 
   const totalPrice=selectedProducts.reduce((sum,item)=>{
     return sum+item.price;
   },0);
 
   useEffect(()=>{
+    fetchCompanyId(1);
     fetchProducts();
-  },[])
+  },[setLocation,address])
 
   const handleSelectProduct = (product: Product) => {
     
@@ -53,6 +57,7 @@ function Order(){
       toast.warning("Nenhum produto inserido.");
       return
     }
+   
     if(!payload.address){
       toast.warning("Nenhum endereço informado.");
       return
@@ -77,6 +82,15 @@ function Order(){
      }
   }
 
+  const fetchCompanyId=async(id:number)=>{
+    await userService.findCompanyById(id).then((response) => {
+       setCompany(response.data.address);
+    })
+      .catch((error) => {
+        toast.warning(""+error);
+    })
+      
+  }
  
   return (
     <>
@@ -88,9 +102,11 @@ function Order(){
                 selectedProduct={selectedProducts}
             />
             <Location onchangeLocation={location=>setLocation(location)}/>
+            
             <OrderSummary
               amount={selectedProducts.length}
               totalPrice={totalPrice}
+              address={company}
               onSubmit={handleSubmit}
             />
         </div>

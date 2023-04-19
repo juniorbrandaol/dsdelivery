@@ -1,4 +1,3 @@
-import {formatPrice} from '../../utils/Formatters'
 
 function OrderDatails(){
 

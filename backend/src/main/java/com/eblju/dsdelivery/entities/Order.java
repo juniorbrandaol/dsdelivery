@@ -2,7 +2,7 @@ package com.eblju.dsdelivery.entities;
 
 import com.eblju.dsdelivery.enuns.OrderStatus;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,15 +32,19 @@ public class Order {
        inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
     public Order(){}
 
-    public Order(Long id, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
+    public Order(Long id,User client, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
         this.id = id;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
         this.moment = moment;
         this.status = status;
+        this.client=client;
     }
 
     public Long getId() {
@@ -50,7 +54,12 @@ public class Order {
     public void setId(Long id) {
         this.id = id;
     }
-
+    public User getClient() {
+        return client;
+    }
+    public void setClient(User client) {
+        this.client = client;
+    }
     public String getAddress() {
         return address;
     }

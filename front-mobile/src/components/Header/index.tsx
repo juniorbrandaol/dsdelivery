@@ -2,7 +2,6 @@ import {View,Text,Image} from 'react-native'
 import styles from "./styles";
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
-import Home from '../Home';
 
 /*TouchableWithoutFeedback => torna uma view clicavel*/
 

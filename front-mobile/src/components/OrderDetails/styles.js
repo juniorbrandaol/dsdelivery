@@ -4,6 +4,7 @@ import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+  
     paddingRight: '5%',
     paddingLeft: '5%'
   },
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFF',
     letterSpacing: -0.24,
-    fontFamily: 'OpenSans_700Bold'
+   // fontFamily:' OpenSans_700Bold',
   }
  
 });

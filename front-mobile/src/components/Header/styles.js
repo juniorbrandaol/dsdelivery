@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
      lineHeight: 25,
      letterSpacing: -0.24,
      marginLeft:15,
-     fontFamily:' OpenSans_700Bold',
+     //fontFamily:' OpenSans_700Bold',
   }
 });
 export default styles;

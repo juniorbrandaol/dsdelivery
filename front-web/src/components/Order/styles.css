@@ -209,7 +209,14 @@
   letter-spacing: -0.015em;
   margin-right: 5px;
 }
-
+.address-selected {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 15px;
+  letter-spacing: -0.015em;
+  margin-right: 5px;
+  margin-left: 25px;
+}
 .order-summary-total {
   font-weight: normal;
   font-size: 14px;
