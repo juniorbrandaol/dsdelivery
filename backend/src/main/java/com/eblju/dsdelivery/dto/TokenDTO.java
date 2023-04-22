@@ -1,5 +1,7 @@
 package com.eblju.dsdelivery.dto;
 
+import java.util.Set;
+
 public class TokenDTO {
 
     private String login;
@@ -30,8 +32,6 @@ public class TokenDTO {
         this.token = token;
     }
 
-    public String getRole() {
-        return role;
-    }
+
 
 }

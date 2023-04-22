@@ -7,7 +7,7 @@ import AsyncSelect from 'react-select/async';
 import { MapContainer, TileLayer, Marker,Popup,useMapEvents } from 'react-leaflet'
 
 //API
-import userService from "../../apiServices/api";
+import userService from "../../Services/apiServices/Api";
 
 import './styles.css';
 import { useState } from "react";

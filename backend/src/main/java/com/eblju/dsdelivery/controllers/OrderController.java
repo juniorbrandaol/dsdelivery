@@ -24,14 +24,21 @@ public class OrderController {
     public List<OrderDto> findAll(){
         return service.findAll();
     }
+
+    @Operation(summary = "Get all Orders by User id")
+    @GetMapping({"/userId/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderDto> findAllByUserId(@Parameter(description = "id of User id to be searched") @PathVariable Long id){
+        return service.findAllByUserId(id);
+    }
     @Operation(summary = "Save an Order")
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDto save(@RequestBody @Valid OrderDto dto){
        return service.insert(dto);
     }
 
-    @Operation(summary = "Update a User its by id")
+    @Operation(summary = "Update an Order its by id")
     @PutMapping("/{id}/delivered")
     @ResponseStatus(HttpStatus.OK)
     public OrderDto updateDelivery(@Parameter(description = "id of order to be searched") @PathVariable Long id){

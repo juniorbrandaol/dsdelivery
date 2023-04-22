@@ -14,4 +14,5 @@ public interface UserService {
 	public UserDTO save(UserInsertDTO userDto);
 	UserDetails authenticate(User user);
 	List<UserDTO> findAll();
+	UserDTO authenticatedUser(String email);
 }

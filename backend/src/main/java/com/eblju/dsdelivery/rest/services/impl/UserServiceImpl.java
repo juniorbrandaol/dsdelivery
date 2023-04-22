@@ -91,7 +91,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public UserDetails authenticate(User user) {
 		UserDetails userDetails= loadUserByUsername(user.getEmail());
 		boolean ifPassword = encoder.matches(user.getPassword(),userDetails.getPassword());
-
 		if(ifPassword){
 			return userDetails;
 		}
@@ -103,5 +102,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		List<User> user = repository.findAll();
 		return user.stream().map(obj-> new UserDTO(obj)).collect(Collectors.toList());
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserDTO authenticatedUser(String email) {
+		User user =  repository.findByEmail(email)
+			.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
+		return new UserDTO(user);
+	}
+
 
 }

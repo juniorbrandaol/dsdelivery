@@ -1,12 +1,12 @@
 import ProductList from './ProductList';
+import Navbar from '../Navbar';
 import StepsHeader from './StepsHeader';
 import {useEffect, useState} from 'react';
 import { Product } from "../../models/Product";
-
+import { useLocation } from 'react-router-dom';
 import './styles.css';
-
 //API
-import userService from "../../apiServices/api";
+import userService from '../../Services/apiServices/Api';
 
 import { toast } from "react-toastify";
 import Location from '../Location';
@@ -15,8 +15,8 @@ import OrderSummary from './OrderSummary';
 import Footer from '../Footer';
 import { checkIsSelected } from './helpers';
 
-
 function Order(){
+  const route= useLocation()
 
   const [products,setProducts] = useState<Product[]>([]);
   const [selectedProducts,setSelectedProducts] = useState<Product[]>([]);
@@ -24,11 +24,14 @@ function Order(){
   const [company,setCompany] = useState('');
   const [address,setAddress]= useState('');
 
+  // const userId=route?.state?.userId;
+
   const totalPrice=selectedProducts.reduce((sum,item)=>{
     return sum+item.price;
   },0);
 
   useEffect(()=>{
+  
     fetchCompanyId(1);
     fetchProducts();
   },[setLocation,address])
@@ -43,18 +46,32 @@ function Order(){
     } else {
       setSelectedProducts(previous => [...previous, product]);
     }
-    //toast.info(product.name) ;
   }
 
   const handleSubmit = async () => {
+
+    var userId;
+    
+     userId = await userService.authenticatedUser().then((result)=>{
+        return result.data.id;
+     }).catch((error)=>{
+        console.log("Erro ao tentar capturar id do user")
+     })
+
+    if(userId===undefined){
+      toast.warning("Usuário não logado ou não autorizado");  
+      return
+    }
+
     const productsIds = selectedProducts.map(({ id }) => ({ id }));
     const payload = {
       ...location!,
-      products: productsIds
+      products: productsIds,
+      client:userId
     }
 
     if(productsIds.length===0){
-      toast.warning("Nenhum produto inserido.");
+      toast.warning("Nenhum produto selecionado.");
       return
     }
    
@@ -67,7 +84,12 @@ function Order(){
       setSelectedProducts([]);
     })
       .catch((error) => {
-        toast.warning(""+error);
+        if(error.status===403){
+          toast.warning("Usuário não logado ou não autorizado");  
+        }else{
+          toast.warning(""+error);
+        }
+       
     })
   }
 
@@ -94,6 +116,7 @@ function Order(){
  
   return (
     <>
+        <Navbar />
         <div className='orders-container'>
             <StepsHeader/>
             <ProductList 
@@ -102,7 +125,6 @@ function Order(){
                 selectedProduct={selectedProducts}
             />
             <Location onchangeLocation={location=>setLocation(location)}/>
-            
             <OrderSummary
               amount={selectedProducts.length}
               totalPrice={totalPrice}

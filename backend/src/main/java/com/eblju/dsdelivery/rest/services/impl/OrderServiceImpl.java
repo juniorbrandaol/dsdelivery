@@ -10,6 +10,7 @@ import com.eblju.dsdelivery.repositories.OrderRepository;
 import com.eblju.dsdelivery.repositories.ProductRepository;
 import com.eblju.dsdelivery.repositories.UserRepository;
 import com.eblju.dsdelivery.rest.services.OrderService;
+import com.eblju.dsdelivery.rest.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,15 @@ public class OrderServiceImpl implements OrderService {
         List<Order> list = repository.findOrdersWithProducts();
         return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderDto> findAllByUserId(Long id)  {
+
+        User user = userRepository.getReferenceById(id);
+        user.setId(id);
+        List<Order> list = repository.findOrdersWithProductsByUserId(user);
+        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+    }
 
     @Override
     @Transactional
@@ -41,13 +51,12 @@ public class OrderServiceImpl implements OrderService {
         Long idCliente = obj.getClient();
         User user = userRepository
                 .findById(idCliente)
-                .orElseThrow(()->new  RuntimeException("Usuário não encontrado "+idCliente ) );
+                .orElseThrow(()->new ResourceNotFoundException("Usuário não encontrado "+idCliente ) );
         Order order = new Order(null,user,obj.getAddress(),obj.getLatitude(),obj.getLongitude(), Instant.now(), OrderStatus.PENDING);
         for(ProductDto p: obj.getProducts()){
             Product product = productRepository.getReferenceById(p.getId());
             order.getProducts().add(product);
         }
-        order.setClient(user);
         order = repository.save(order);
         return new OrderDto(order);
     }

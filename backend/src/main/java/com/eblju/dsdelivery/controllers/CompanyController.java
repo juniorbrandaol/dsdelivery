@@ -24,7 +24,7 @@ public class CompanyController {
     }
 
     @Operation(summary = "Get a Company by its id")
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CompanyDto getById(@Parameter(description = "id of company to be searched") @PathVariable Long id){
        return service.findById(id);

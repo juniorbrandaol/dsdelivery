@@ -1,4 +1,4 @@
-import {ScrollView,Alert,Text} from 'react-native'
+import {ScrollView,Alert,Text,RefreshControl} from 'react-native'
 import styles from "./styles";
 import Header from '../Header';
 import OrderCard from '../OrderCard';
@@ -16,6 +16,7 @@ export default function Orders() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [orders,setOrders]= useState<Order[]>([]);
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(()=>{
     if(isFocused){
@@ -31,6 +32,7 @@ export default function Orders() {
        })
     }
     catch(error){
+      console.log(error)
       Alert.alert('Erro ao carregar pedidos');
     }
     finally{
@@ -44,10 +46,31 @@ export default function Orders() {
   });
  }
 
+ const refreshData = () => {
+  if(isFocused){
+    fetchOrders();
+  }
+}
+
+ const refreshControl = () => {
+  return (
+    <RefreshControl
+      refreshing={refreshing}
+      onRefresh={() => refreshData()}
+      title={'refresh...'}
+    />
+
+  )
+}
+
   return (
     <>
       <Header/>
-        <ScrollView  style={styles.container}>
+        <ScrollView  
+           style={styles.container}
+           showsVerticalScrollIndicator={false}
+           refreshControl={refreshControl()}
+        >
          {
            isLoading ? (
             <Text>Buscando pedidos....</Text>

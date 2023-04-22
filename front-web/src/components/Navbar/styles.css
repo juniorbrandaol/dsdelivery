@@ -3,10 +3,26 @@
  
   height: 70px;
   padding-left: 45px;
+  padding-right: 45px;
   display: flex;
   align-items: center;
   background: #DA5C5C;
-
+  flex-direction: row;
+  justify-content: space-between;
+}
+.container_navbar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content_navbar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #DA5C5C;
+  color: #FFFFFF;
+  border: 0;
 }
 
 .logo-text{
@@ -15,5 +31,22 @@
   line-height: 33px;
   letter-spacing: -0.015em;
   color: #FFFFFF;
-  margin-left: 15px;
+  margin-left: 1px;
+}
+
+.make-login-image{
+  align-self: center;
+  height: 30px;
+  width: 70px;
+  background:#DA5C5C;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+}
+.make-login-image:focus {
+  outline: none;
+}
+.make-login-image:hover {
+  background-color: #ec6f6f;
+  transform: scale(1.01);
 }
