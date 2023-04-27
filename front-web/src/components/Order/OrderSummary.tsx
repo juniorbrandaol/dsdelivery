@@ -1,24 +1,25 @@
 import {formatPrice} from '../../utils/Formatters'
 
 type Props={
-  amount: number;
+  items: number;
+  quantity: number;
   totalPrice: number;
   address : string;
   onSubmit : ()=> void;
 }
 
-function OrderSummary({amount,totalPrice,address,onSubmit}:Props){
+function OrderSummary({items,quantity,totalPrice,address,onSubmit}:Props){
 
     return(
       <div className="order-summary-container">
          <div className="order-summary-content">
            <div>
                <span className="amount-selected-container">
-                  <strong className="amount-selected">{amount}</strong>
+                  <strong className="amount-selected">{items}</strong>
                   PEDIDOS SELECIONADOS
                </span>
                <span className="order-summer-total">
-                  <strong className="amount-selected">  {formatPrice(totalPrice,'BRL',2)}</strong>
+                  <strong className="amount-selected">  {formatPrice(quantity*totalPrice,'BRL',2)}</strong>
                   VALOR TOTAL
                </span>
                
@@ -29,17 +30,12 @@ function OrderSummary({amount,totalPrice,address,onSubmit}:Props){
                    {address}
                </span>
            </div>
-           {/*
-           <Link to='/orderDetails' className='order-summary-make-order'>
-               FAZER PEDIDO
-            </Link>
-            **/}
-            <button 
-              className="order-summary-make-order"
-              onClick={onSubmit}
-            >
-              FAZER PEDIDO
-            </button>
+           <button 
+             className="order-summary-make-order"
+             onClick={onSubmit}
+           >
+             FAZER PEDIDO
+           </button>
          </div>
       </div>
     )

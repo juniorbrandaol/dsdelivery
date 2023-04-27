@@ -11,7 +11,7 @@ class UserService {
     async findAllOrders() {
 
         return axios({
-            url: BASE_URL + "/orders",
+            url: BASE_URL + "/orders/pending",
             method: "GET",
            
         }).then((response) => {

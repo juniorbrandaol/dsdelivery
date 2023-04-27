@@ -3,8 +3,9 @@ import './styles.css';
 import {ReactComponent as Logo} from '../../assets/imgs/logo.svg'
 import {ReactComponent as Login} from '../../assets/imgs/login.svg'
 import {ReactComponent as Logout} from '../../assets/imgs/logout.svg'
-import {ReactComponent as Hamburguer} from '../../assets/imgs/hamburguer.svg'
+import {ReactComponent as Orders} from '../../assets/imgs/orders.svg'
 import { Link } from 'react-router-dom';
+import { useNavigate   } from 'react-router-dom';
 //API
 import userService from '../../Services/apiServices/Api';
 
@@ -15,10 +16,12 @@ function Navbar(){
   const [userName,setUserName] = useState("")
   useEffect(()=>{
    fetchUser();
-  },[userName])
+  },[])
+
+  const navigation = useNavigate();
 
   const fetchUser=async()=>{
-   
+
     await userService.authenticatedUser().then((result)=>{
        setUserName(result.data.firstName)
     }).catch((error)=>{
@@ -29,6 +32,7 @@ function Navbar(){
   const makeLogout=()=>{
     Storage.removeToken();
     setUserName("")
+    navigation("/orders");
   }
 
   return(
@@ -42,6 +46,9 @@ function Navbar(){
               { 
               userName!==""?
               <>
+                <Link to='/orderList' >
+                  <Orders className='make-orders-image' />  
+                </Link>
                 <button className='content_navbar'
                   onClick={makeLogout}
                 >

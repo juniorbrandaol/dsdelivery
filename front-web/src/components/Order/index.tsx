@@ -16,6 +16,7 @@ import Footer from '../Footer';
 import { checkIsSelected } from './helpers';
 
 function Order(){
+
   const route= useLocation()
 
   const [products,setProducts] = useState<Product[]>([]);
@@ -23,23 +24,24 @@ function Order(){
   const [location, setLocation] = useState<LocationData>();
   const [company,setCompany] = useState('');
   const [address,setAddress]= useState('');
-
+  const [getQuantity,setQuantity]= useState(1);
+  
+ 
   // const userId=route?.state?.userId;
 
   const totalPrice=selectedProducts.reduce((sum,item)=>{
-    return sum+item.price;
+        return (sum+item.price);
   },0);
 
   useEffect(()=>{
-  
     fetchCompanyId(1);
     fetchProducts();
   },[setLocation,address])
 
   const handleSelectProduct = (product: Product) => {
-    
+   
     const isAlreadySelected = checkIsSelected(selectedProducts,product);
-  
+    
     if (isAlreadySelected) {
       const selected = selectedProducts.filter(item => item.id !== product.id);
       setSelectedProducts(selected);
@@ -47,7 +49,7 @@ function Order(){
       setSelectedProducts(previous => [...previous, product]);
     }
   }
-
+ 
   const handleSubmit = async () => {
 
     var userId;
@@ -67,6 +69,7 @@ function Order(){
     const payload = {
       ...location!,
       products: productsIds,
+      items:productsIds,
       client:userId
     }
 
@@ -89,7 +92,6 @@ function Order(){
         }else{
           toast.warning(""+error);
         }
-       
     })
   }
 
@@ -111,7 +113,11 @@ function Order(){
       .catch((error) => {
         toast.warning(""+error);
     })
-      
+  }
+
+  const quantity=(qtd:number)=>{
+    setQuantity(qtd);
+    return qtd;
   }
  
   return (
@@ -123,12 +129,15 @@ function Order(){
                 products={products}
                 onSelectProduct={handleSelectProduct}
                 selectedProduct={selectedProducts}
+                qtd={quantity}
+
             />
             <Location onchangeLocation={location=>setLocation(location)}/>
             <OrderSummary
-              amount={selectedProducts.length}
+              items={selectedProducts.length}
+              quantity={getQuantity}
               totalPrice={totalPrice}
-              address={company}
+              address={address}
               onSubmit={handleSubmit}
             />
         </div>

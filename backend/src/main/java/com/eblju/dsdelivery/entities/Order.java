@@ -4,14 +4,11 @@ import com.eblju.dsdelivery.enuns.OrderStatus;
 
 import jakarta.persistence.*;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_order")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,14 +26,18 @@ public class Order {
     @ManyToMany
     @JoinTable(name = "tb_order_product",
        joinColumns =  @JoinColumn(name = "order_id"),
-       inverseJoinColumns = @JoinColumn(name = "product_id"))
+       inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private Set<Product> products = new HashSet<>();
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private User client;
-    public Order(){}
 
+    @OneToMany(mappedBy = "id.order", fetch = FetchType.LAZY)
+    private List<OrderItem> items = new ArrayList<>();
+
+    private Double total;
+    public Order(){}
     public Order(Long id,User client, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
         this.id = id;
         this.address = address;
@@ -102,6 +103,16 @@ public class Order {
 
     public Set<Product> getProducts() {
         return products;
+    }
+
+    public List<OrderItem> getItems(){
+        return items;
+    }
+    public void setItems(List<OrderItem> items) {
+       this.items = items;
+    }
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public Double getTotal(){

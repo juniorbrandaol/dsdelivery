@@ -2,10 +2,8 @@ package com.eblju.dsdelivery.rest.services.security.jwt;
 
 import com.eblju.dsdelivery.entities.User;
 import com.eblju.dsdelivery.rest.services.exceptions.TokenInvalidException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.eblju.dsdelivery.rest.services.exceptions.UnauthorizedException;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +58,13 @@ public class JwtService {
                     .toLocalDateTime();
             return !LocalDateTime.now().isAfter(data);
         }catch (ExpiredJwtException e){
-                throw new TokenInvalidException();
+            throw new TokenInvalidException("Token expirado");
+        }catch (IllegalArgumentException e){
+            throw new TokenInvalidException("Argumento inválido");
+        }catch (MalformedJwtException e){
+            throw new TokenInvalidException("Token inválido");
+        }catch (SignatureException e){
+            throw new TokenInvalidException("Token inválido");
         }
 
     }

@@ -60,7 +60,7 @@ class UserService {
         })
     }
 
-    //RETORNA UM TOKEM DE AUTORIZAÇÃO
+    //RETORNA O USUARIO AUTENTICADO
     async authenticatedUser() {
        
         return axios({
@@ -85,7 +85,7 @@ class UserService {
         })
     }
 
-    //RETORNA UM TOKEM DE AUTORIZAÇÃO
+    //VERIFICA SE AUTENTICADO
     async userIsAuthenticated() {
 
         return axios({
@@ -114,7 +114,7 @@ class UserService {
 
     /********************* PRODUCTS ******************/ 
     
-    //RETORNA AS VENDAS
+    //RETORNA OS PRODUTOS
     async findAllProducts() {
 
         return axios({
@@ -164,7 +164,7 @@ class UserService {
         })
     }
 
-    //RETORNA AS EMPRESAS
+    //RETORNA UMA EMPRESA POR ID
     async findCompanyById(id:number) {
 
         return axios({
@@ -203,33 +203,106 @@ class UserService {
    //SALVA UM PEDIDO
    async saveOrder(payLoad:object) {
 
+        return axios({
+            url: BASE_URL + "/orders",
+            method: "POST",
+            data: payLoad,
+            headers: {
+                "Authorization": "Bearer "+ await storage.getToken(),
+            }
+        
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+        
+            if (error.response) { 
+                // A requisição foi feita e o servidor respondeu com um código de status
+                // que sai do alcance de 2xx
+                return Promise.reject(error.response)
+            } else if (error.request) { 
+                // A requisição foi feita mas nenhuma resposta foi recebida
+                // `error.request` é uma instância do XMLHttpRequest no navegador e uma instância de
+                // http.ClientRequest no node.js 
+                return Promise.reject(error)
+            } else { 
+                // anything else 
+                return Promise.reject(error)
+            } 
+        })
+    }
+
+
+    //RETORNA OS PEDIDOS POR ID DE USUARIO
+   async listOrdersByUserId(userId:number) {
+
     return axios({
-        url: BASE_URL + "/orders",
-        method: "POST",
-        data: payLoad,
+        url: BASE_URL + "/orders/userId/"+userId,
+        method: "GET",
         headers: {
             "Authorization": "Bearer "+ await storage.getToken(),
         }
        
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+        
+            if (error.response) { 
+                return Promise.reject(error.response)
+            } else if (error.request) { 
+                return Promise.reject(error)
+            } else { 
+                return Promise.reject(error)
+            } 
+        })
+    }
+
+   //RETORNA OS PEDIDOS POR ID DE USUARIO E STATUS
+   async listOrdersByUserIdStatusId(userId:number,statusId:number) {
+
+        return axios({
+            url: BASE_URL + "/orders/userId/"+userId+"/statusId/"+statusId,
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer "+ await storage.getToken(),
+            }
+        
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => { 
+            if (error.response) { 
+                return Promise.reject(error)
+            } else if (error.request) {
+                return Promise.reject(error)
+            } else{
+                return Promise.reject(error)
+            } 
+        })
+   }
+
+   //RETORNA OS PEDIDOS POR ID DE USUARIO E STATUS
+   async updateOrderStatus(orderId:number,statusId:number) {
+
+    return axios({
+        url: BASE_URL + "/orders/"+orderId+"/"+statusId,
+        method: "PUT",
+        headers: {
+            "Authorization": "Bearer "+ await storage.getToken(),
+        }
+    
     }).then((response) => {
         return Promise.resolve(response)
-    }).catch((error) => {
-    
+    }).catch((error) => { 
         if (error.response) { 
-            // A requisição foi feita e o servidor respondeu com um código de status
-            // que sai do alcance de 2xx
-            return Promise.reject(error.response)
-        } else if (error.request) { 
-            // A requisição foi feita mas nenhuma resposta foi recebida
-            // `error.request` é uma instância do XMLHttpRequest no navegador e uma instância de
-            // http.ClientRequest no node.js 
+            return Promise.reject(error.response.status)
+        } else if (error.request) {
             return Promise.reject(error)
-        } else { 
-            // anything else 
+        } else{
             return Promise.reject(error)
         } 
     })
 }
+
+
 
 }
 

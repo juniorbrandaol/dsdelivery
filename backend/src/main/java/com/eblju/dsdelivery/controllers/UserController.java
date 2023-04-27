@@ -7,6 +7,7 @@ import com.eblju.dsdelivery.dto.UserInsertDTO;
 import com.eblju.dsdelivery.entities.User;
 import com.eblju.dsdelivery.rest.services.UserService;
 import com.eblju.dsdelivery.rest.services.security.jwt.JwtService;
+import io.jsonwebtoken.MalformedJwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -67,21 +67,20 @@ public class UserController  {
 
 	@Operation(summary = "Get an User Authenticated ")
 	@GetMapping("/currentusername")
-	public UserDTO currentUserName(Authentication authentication) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String nome;
-		if (principal instanceof UserDetails) {
-			nome = ((UserDetails)principal).getUsername();
-		} else {
-			nome = principal.toString();
+	public UserDTO currentUserName(Authentication authentication){
+		try {
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+			String login = authentication.getName();
+			return service.authenticatedUser(login);
+		} catch (MalformedJwtException e) {
+			return null;
 		}
-      return   service.authenticatedUser(nome);
 	}
 
 	@Operation(summary = "Check if the User is authenticated ")
 	@GetMapping("/userisauthenticated")
 	public boolean CheckIsAuthenticated(Authentication authentication) {
-		return authentication.isAuthenticated();
+			return authentication.isAuthenticated();
 	}
 
 }

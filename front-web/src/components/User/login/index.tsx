@@ -20,6 +20,9 @@ function Login(){
      email:login,
      password:password
   }
+  
+  
+
   const makeLogin=async()=>{
    
     if(checkInputs()===false){
@@ -94,7 +97,7 @@ function Login(){
              </div>
              <button 
               className="make-login"
-              onClick={makeLogin}
+              onClick={()=>makeLogin()}
             >
               FAZER LOGIN
             </button>

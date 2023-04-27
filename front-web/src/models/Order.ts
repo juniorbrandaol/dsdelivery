@@ -1,6 +1,5 @@
 import { LocationData } from './Location';
 
-
 type ProductId={
   id: number;
 }
@@ -10,3 +9,24 @@ export type OrderPayload={
   products :ProductId[];
 }&LocationData;
 
+export type OrdersList={
+  id : number;
+  name : string;
+  price : number;
+  description : number;
+  imageUri:string;
+  total:number;
+  moment:string;
+  amount : number;
+  status:string;
+  products:[
+    {
+    id : number;
+    name : string;
+    price : number;
+    description : number;
+    imageUri:string;
+    }
+  ];
+ 
+}&LocationData;

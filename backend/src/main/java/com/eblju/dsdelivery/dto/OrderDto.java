@@ -23,6 +23,7 @@ public class OrderDto {
     private OrderStatus status;
     private Double total;
     private List<ProductDto> products = new ArrayList<>();
+    private List<OrderItemDTO> items= new ArrayList<>();
 
     public OrderDto(){}
 
@@ -50,6 +51,9 @@ public class OrderDto {
         products= entity.getProducts()
                         .stream()
                         .map( obj-> new ProductDto(obj)).collect(Collectors.toList());
+        items = entity.getItems()
+                        .stream()
+                        .map( obj-> new OrderItemDTO(obj)).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -109,9 +113,17 @@ public class OrderDto {
     public Double getTotal() {
         return total;
     }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
     public List<ProductDto> getProducts() {
         return products;
     }
 
+    public List<OrderItemDTO> getItems() {
+
+        return items.stream().collect(Collectors.toList());
+    }
 
 }

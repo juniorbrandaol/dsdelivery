@@ -12,7 +12,6 @@ import userService from "../../Services/apiServices/Api";
 import './styles.css';
 import { useState } from "react";
 import { LocationData } from '../../models/Location';
-import { latLng } from 'leaflet';
 
 type Place={
    label?:string;
@@ -97,6 +96,7 @@ function Location({onchangeLocation}:Props){
               placeholder="Digite um endereço para entregar o pedido:"
               className="filter"
               loadOptions={loadOptions}
+             
               onChange={value=>handleChangeSelect(value as Place)}
             />
          </div>

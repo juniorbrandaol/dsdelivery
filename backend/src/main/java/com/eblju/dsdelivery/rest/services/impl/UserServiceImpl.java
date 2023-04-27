@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDTO authenticatedUser(String email) {
+
 		User user =  repository.findByEmail(email)
 			.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
 		return new UserDTO(user);

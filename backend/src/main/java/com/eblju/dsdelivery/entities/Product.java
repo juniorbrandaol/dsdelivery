@@ -1,12 +1,14 @@
 package com.eblju.dsdelivery.entities;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,6 +18,8 @@ public class Product {
     private String description;
     private String imageUri;
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
     public Product(){}
 
     public Product(Long id, String name, Double price, String description, String imageUri) {

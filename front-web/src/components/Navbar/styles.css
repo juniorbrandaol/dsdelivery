@@ -1,6 +1,5 @@
 
 .main-navbar{
- 
   height: 70px;
   padding-left: 45px;
   padding-right: 45px;
@@ -12,8 +11,8 @@
 }
 .container_navbar{
   display: flex;
-  justify-content: center;
   align-items: center;
+  width: 1000px;
 }
 .content_navbar{
   display: flex;
@@ -47,6 +46,22 @@
   outline: none;
 }
 .make-login-image:hover {
+  background-color: #ec6f6f;
+  transform: scale(1.01);
+}
+.make-orders-image{
+  align-self: center;
+  height: 60px;
+  width: 70px;
+  background:#DA5C5C;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+}
+.make-orders-image:focus {
+  outline: none;
+}
+.make-orders-image:hover {
   background-color: #ec6f6f;
   transform: scale(1.01);
 }

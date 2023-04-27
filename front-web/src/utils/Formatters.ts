@@ -1,5 +1,5 @@
 
-const formatPrice=(price:number,currency:string,digits:number)=>{
+const formatPrice=(price:any,currency:string,digits:number)=>{
   const formater = new Intl.NumberFormat('pt-BR',{
      style:'currency',
      currency:currency,
