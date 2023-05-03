@@ -83,24 +83,15 @@ function CreateUser(){
        cpf:cpf,
        email:email,
        password:password,
-       rolles:[
-        {
-          id: 1
-        },
-       {
-        id:2
-       }
-       
-   ]
+       rolles:[{id: 1},{id:2}]
     }
 
-     
       if(checkInputs()===false){
        return
       }
      
       try{  
-          var auth= await userService.saveUser(data);
+          await userService.saveUser(data);
           toast("Usuário salvo") ;
           navigation("/login");
       }

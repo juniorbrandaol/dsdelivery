@@ -7,10 +7,10 @@ import { Order } from '../../models/Order';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import { useNavigation,useIsFocused } from '@react-navigation/native';
 //API
-import userService from "../../apiServices/api";
+import userService from "../../Services/apiServices/api";
 
 export default function Orders() {
-
+ 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
@@ -20,7 +20,7 @@ export default function Orders() {
 
   useEffect(()=>{
     if(isFocused){
-      fetchOrders();
+    //  fetchOrders();
     }
   },[isFocused])
 

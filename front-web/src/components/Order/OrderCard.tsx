@@ -27,7 +27,7 @@ function OrderCard({order}:Props){
 
   return (
    <div 
-     className='order-card-container '
+     className='order-card-container ' key={order.id}
        onClick={()=>onSelectOrder(order)}
    >
      <div className='order-card-content'>

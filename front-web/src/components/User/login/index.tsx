@@ -21,14 +21,11 @@ function Login(){
      password:password
   }
   
-  
-
   const makeLogin=async()=>{
    
     if(checkInputs()===false){
      return
     }
-   
     try{  
         var auth= await userService.auth(data);
         Storage.removeToken();

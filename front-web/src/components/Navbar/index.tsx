@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState,useCallback} from 'react'
 import './styles.css';
 import {ReactComponent as Logo} from '../../assets/imgs/logo.svg'
 import {ReactComponent as Login} from '../../assets/imgs/login.svg'
@@ -6,6 +6,7 @@ import {ReactComponent as Logout} from '../../assets/imgs/logout.svg'
 import {ReactComponent as Orders} from '../../assets/imgs/orders.svg'
 import { Link } from 'react-router-dom';
 import { useNavigate   } from 'react-router-dom';
+import { toast } from "react-toastify";
 //API
 import userService from '../../Services/apiServices/Api';
 
@@ -21,14 +22,13 @@ function Navbar(){
   const navigation = useNavigate();
 
   const fetchUser=async()=>{
-
     await userService.authenticatedUser().then((result)=>{
        setUserName(result.data.firstName)
     }).catch((error)=>{
       setUserName("")
     })
   }
-
+  
   const makeLogout=()=>{
     Storage.removeToken();
     setUserName("")

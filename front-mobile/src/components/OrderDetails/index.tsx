@@ -6,7 +6,7 @@ import Header from '../Header';
 import { Order } from '../../models/Order';
 import OrderCard from '../OrderCard';
 //API
-import userService from "../../apiServices/api";
+import userService from "../../Services/apiServices/api";
 
 type Props={
   route:{
@@ -24,7 +24,7 @@ export default function OrderDatails({route}:Props) {
   const  handleOnCancel=()=>{
     navigation.navigate('Orders')
   }
-
+/*
   const  handleConfirmDelivery=async()=>{
     try{
       await userService.confirmDelivery(order.id).then(()=>{
@@ -36,11 +36,11 @@ export default function OrderDatails({route}:Props) {
        Alert.alert(`Erro ao confirmar entrega do pedido ${order.id}`);
     }
   }
-
+*/
   const handleStartNavigation=()=>{
      Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${order.latitude},${order.longitude}`)
   }
-
+//onPress={()=>handleConfirmDelivery()}
   return (
     <>
        <Header/> 
@@ -49,7 +49,7 @@ export default function OrderDatails({route}:Props) {
           <RectButton style={styles.button} onPress={handleStartNavigation}>
              <Text style={styles.buttonText}>INICIAR NAVEGAÇÃO</Text>
           </RectButton>
-          <RectButton style={styles.button} onPress={()=>handleConfirmDelivery()}>
+          <RectButton style={styles.button} >
              <Text style={styles.buttonText}>CONFIRMAR ENTREGA</Text>
           </RectButton>
           <RectButton style={styles.button} onPress={handleOnCancel}>

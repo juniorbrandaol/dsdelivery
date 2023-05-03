@@ -20,13 +20,8 @@ class UserService {
     }).catch((error) => {
     
         if (error.response) { 
-            // A requisição foi feita e o servidor respondeu com um código de status
-            // que sai do alcance de 2xx
             return Promise.reject(error.response)
         } else if (error.request) { 
-            // A requisição foi feita mas nenhuma resposta foi recebida
-            // `error.request` é uma instância do XMLHttpRequest no navegador e uma instância de
-            // http.ClientRequest no node.js 
             return Promise.reject(error)
         } else { 
             // anything else 
@@ -99,7 +94,7 @@ class UserService {
         }).catch((error) => {
             if (error.response) { 
                 // client received an error response (5xx, 4xx)
-                return Promise.reject(error)
+                return Promise.reject(error.response.status)
               } else if (error.request) { 
                 // client never received a response, or request never left 
                 return Promise.reject(error)

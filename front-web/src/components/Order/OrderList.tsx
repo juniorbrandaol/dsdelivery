@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState,useCallback} from 'react'
 import './styles.css';
 //API
 import userService from '../../Services/apiServices/Api';
@@ -7,11 +7,14 @@ import { toast } from "react-toastify";
 import {OrdersList} from '../../models/Order'
 import OrderCard from './OrderCard';
 import AsyncSelect from 'react-select/async';
+import {useNavigate} from 'react-router-dom'
 
 type INITIAL_DATA ={value: number, label: string }
 
 function OrderList(){
 
+  const navigation= useNavigate()
+  const [update,setUpdate] = useState(false)
   const [selectData, setselectData] = useState<INITIAL_DATA>(
      {value:100,label:"TODOS"},
   );
@@ -19,8 +22,24 @@ function OrderList(){
   const [orders,setOrders]=useState<OrdersList[]>([]);
 
   useEffect(()=>{
-     fetchOrders()
-  },[selectData])
+    checkIsConnected();
+    fetchOrders()
+  },[update])
+
+  const checkIsConnected=useCallback(async()=>{
+    
+    try{ 
+      await userService.userIsAuthenticated();
+    }catch(error){   
+      
+      if(error===403){
+        toast.warning("Verifique sua conexão");  
+      }else{
+        toast.warning("Erro "+error);  
+      }
+      navigation("/");
+    }
+  },[]);
 
   const fetchOrders=async()=>{
     
@@ -37,7 +56,6 @@ function OrderList(){
            setOrders(response.data);
        })
       }
-      
     }
     catch(error:any){
      toast.error("Erro: " + error.code) ;
@@ -55,6 +73,7 @@ function OrderList(){
 
   const handleChangeSelect = (place: INITIAL_DATA) => {
     setselectData(place)
+    setUpdate(!update)
   };
 
   return(
@@ -69,7 +88,6 @@ function OrderList(){
               </h3>   
               <div className="filter-select-status">
                 <AsyncSelect
-                  placeholder="Digite um endereço para entregar o pedido:"
                   className="filter-status"
                   loadOptions={loadOptions}
                   value={selectData}

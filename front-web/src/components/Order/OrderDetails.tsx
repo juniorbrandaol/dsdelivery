@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState,useCallback} from 'react'
 import { useLocation,useNavigate } from 'react-router-dom';
 import './styles.css';
 import {ReactComponent as OrderPending} from '../../assets/imgs/orderpending.svg'
@@ -15,12 +15,10 @@ import 'dayjs/locale/pt-br';
 import userService from '../../Services/apiServices/Api';
 
 function OrderDetails(){
-
+  
   const route= useLocation()
   const navigation = useNavigate();
-
   const [orders,setOrders]=useState<OrdersList>();
-
   const dateFromNow=(date:any)=>{
     return dayjs(date).fromNow();
   }
@@ -28,9 +26,25 @@ function OrderDetails(){
   const dateFromDate=(date:any)=>{
     return dayjs(date).format('MMMM DD/MM/YYYY dddd h:mm');
   }
-
+  
   useEffect(()=>{
+   
+    checkIsConnected()
     setOrders(route.state.order)
+  },[])
+
+  const checkIsConnected=useCallback(async()=>{
+  
+    try{
+      await userService.userIsAuthenticated();
+    }catch(error){   
+      if(error===403){
+        toast.warning("Verifique sua conexão.");  
+      }else{
+        toast.warning("Erro "+error);  
+      }
+      navigation("/");
+    }
   },[])
 
   const updateStatus=async()=>{
