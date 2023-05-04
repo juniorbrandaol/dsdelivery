@@ -8,9 +8,7 @@ import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
-public class UserDTO implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class UserDTO  {
 	
 	private Long id;
 	
@@ -24,7 +22,7 @@ public class UserDTO implements Serializable {
 	
 	private Set<RoleDTO> rolles = new HashSet<>();
 	
-	public UserDTO() {}
+	public UserDTO() {super();}
 
 	public UserDTO(Long id, String firstName, String lastName,String cpf, String email) {
 		this.id = id;

@@ -104,6 +104,14 @@ public class OrderServiceImpl implements OrderService {
             throw new ResourceNotFoundException("Pedido não encontrado");
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public OrderDto findByOrderId(Long id) {
+        Order dto = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Erro"));
+        return new OrderDto(dto);
+    }
+
     private List<OrderItem> toOrderItem(Order order, List<OrderItemDTO> items){
 
         if(items.isEmpty()){
@@ -124,4 +132,6 @@ public class OrderServiceImpl implements OrderService {
                     return  orderItem;
                 } ).collect(Collectors.toList());
     }
+
+
 }

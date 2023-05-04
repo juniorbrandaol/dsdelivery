@@ -1,18 +1,15 @@
-package com.eblju.dsdelivery.rest.services;
+package com.eblj.dsdeliveryman.rest.services.ms;
 
-import com.eblju.dsdelivery.dto.OrderDto;
-import com.eblju.dsdelivery.entities.Order;
-import com.eblju.dsdelivery.enuns.OrderStatus;
+import com.eblj.dsdeliveryman.dto.OrderDto;
 
 import java.util.List;
 
 public interface OrderService {
+    OrderDto findByOrderId(Long id);
     List<OrderDto> findAll();
     List<OrderDto> findAllPending();
     List<OrderDto> findAllByUserId(Long id);
     List<OrderDto> findAllByUserIdAndStatus(Long id, int status);
-    Order insert(OrderDto obj);
     OrderDto updateDelivery(Long id,int status);
-    OrderDto findByOrderId(Long id);
 
 }

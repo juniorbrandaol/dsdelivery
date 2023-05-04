@@ -3,14 +3,14 @@ package com.eblju.dsdelivery.entities;
 import java.io.Serializable;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+@JsonIgnoreProperties(allowSetters = true)
+public class User implements  Serializable{
+	private static final long serialVersionUID = 5177019431887513952L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,7 +30,7 @@ public class User implements Serializable{
 	          )
 	private Set<Role> roles = new HashSet<>();
 	
-	public User() {}
+	public User() {super();}
 
 	public User(Long id,String cpf, String firstName, String lastName, String email, String password) {
 		this.id = id;

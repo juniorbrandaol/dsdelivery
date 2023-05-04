@@ -34,7 +34,7 @@ public class OrderController {
     }
 
     @Operation(summary = "Get all Orders by User id")
-    @GetMapping({"/userId/{id}"})
+    @GetMapping({"/getAll/userId/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> findAllByUserId(@Parameter(description = "id of User id to be searched") @PathVariable Long id){
         return service.findAllByUserId(id);
@@ -68,6 +68,15 @@ public class OrderController {
         {
         OrderDto dto =service.updateDelivery(id,statusId);
         return dto;
+    }
+
+    @Operation(summary = "Return an Order by id")
+    @GetMapping("/orderId/{orderId}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderDto findByOrderId( @Parameter(description = "id of order to be searched") @PathVariable Long orderId){
+        OrderDto dto = service.findByOrderId(orderId);
+        return dto;
+
     }
 
 }

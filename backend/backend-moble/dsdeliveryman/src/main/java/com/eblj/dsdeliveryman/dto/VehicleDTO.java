@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class VehicleDTO {
     private Long id;
     private String yearManufacture;
@@ -36,6 +34,7 @@ public class VehicleDTO {
         owner = entity.getOwner();
         vehicleType = entity.getVehicleType();
     }
+    public VehicleDTO(){ super();}
     public Long getId() {
         return id;
     }

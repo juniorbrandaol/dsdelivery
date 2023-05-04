@@ -1,11 +1,10 @@
-package com.eblju.dsdelivery.entities;
-
-import com.eblju.dsdelivery.enuns.OrderStatus;
+package com.eblj.dsdeliveryman.entities.ms;
+import com.eblj.dsdeliveryman.entities.User;
+import com.eblj.dsdeliveryman.enuns.OrderStatus;
 import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.*;
-
-@Entity
 @Table(name = "tb_order")
 public class Order {
     @Id
@@ -24,8 +23,8 @@ public class Order {
     @Column(nullable = false)
     @ManyToMany
     @JoinTable(name = "tb_order_product",
-       joinColumns =  @JoinColumn(name = "order_id"),
-       inverseJoinColumns = @JoinColumn(name = "product_id")
+            joinColumns =  @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private Set<Product> products = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
@@ -108,7 +107,7 @@ public class Order {
         return items;
     }
     public void setItems(List<OrderItem> items) {
-       this.items = items;
+        this.items = items;
     }
     public void setTotal(Double total) {
         this.total = total;

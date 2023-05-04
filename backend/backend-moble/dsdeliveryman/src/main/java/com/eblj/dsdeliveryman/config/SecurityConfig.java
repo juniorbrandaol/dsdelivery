@@ -34,7 +34,7 @@ public class SecurityConfig  {
     };
     private static final String[] OPERATOR_OR_ADMIN ={"/users/userisauthenticated",
             "/orders/userId/**","/users/currentusername","/orders/pending","/vehicles/save,",
-            "/vehicles/userId/**,"
+            "/vehicles/userId/**", "/orders/**","/orders/orderId/**"
     };
     private static final String[]  ADMIN ={"/users/**"};
     private static final String[] SWAGGER = {
@@ -65,6 +65,7 @@ public class SecurityConfig  {
     public OncePerRequestFilter jwtFilter(){
         return new JwtAutFilter(jwtService,userServiceImpl);
     }
+
     @Bean
     public UserDetailsService userDetailsService(AuthenticationManagerBuilder aut) throws Exception {
         aut

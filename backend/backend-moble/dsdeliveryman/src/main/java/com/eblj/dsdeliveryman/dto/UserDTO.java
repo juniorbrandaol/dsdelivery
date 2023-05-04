@@ -8,13 +8,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-public class UserDTO implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
+public class UserDTO  {
+
 	private Long id;
 	@Size(min = 4,max = 12,message = "Nome deve conter no mínimo {min} e no máximo {max} caracteres.")
 	@NotBlank(message = "Campo obrigatório.")
@@ -34,7 +31,7 @@ public class UserDTO implements Serializable {
 	@Column(unique = true)
 	private String email;
 	private Set<RoleDTO> rolles = new HashSet<>();
-	public UserDTO() {}
+	public UserDTO() {super();}
 
 	public UserDTO(Long id, String firstName, String lastName,String cpf,String phone, String email) {
 		this.id = id;
