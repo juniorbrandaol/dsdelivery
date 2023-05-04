@@ -21,11 +21,12 @@ public class OrderController {
     private OrderServiceImpl service;
 
     @Operation(summary = "Get all Orders")
-    @GetMapping
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> findAll(){
         return service.findAll();
     }
+
     @Operation(summary = "Get all Orders by status pending")
     @GetMapping("/pending")
     @ResponseStatus(HttpStatus.OK)
@@ -40,17 +41,28 @@ public class OrderController {
         return service.findAllByUserId(id);
     }
 
+    @Operation(summary = "Get all Orders by status")
+    @GetMapping({"/statusId/{statusId}"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderDto> findAllByStatus(
+            @Parameter(description = "id of Status to be searched")
+            @PathVariable(value="statusId") Integer  statusId )
+    {
+        return service.findAllByStatusId(statusId);
+    }
+
     @Operation(summary = "Get all Orders by User id and status")
     @GetMapping({"/userId/{id}/statusId/{statusId}"})
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> findAllByUserIdAndStatus(
-                    @Parameter(description = "id of User id to be searched")
-                    @PathVariable Long id ,
-                    @Parameter(description = "id of Status to be searched")
-                    @PathVariable(value="statusId", required=false) Integer  statusId )
-         {
-         return service.findAllByUserIdAndStatus(id,statusId);
+            @Parameter(description = "id of User id to be searched")
+            @PathVariable Long id ,
+            @Parameter(description = "id of Status to be searched")
+            @PathVariable(value="statusId", required=false) Integer  statusId )
+    {
+        return service.findAllByUserIdAndStatus(id,statusId);
     }
+
     @Operation(summary = "Save an Order")
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,6 +71,7 @@ public class OrderController {
         return new OrderDto(order);
     }
 
+    /*REFAZER ESSE ENDPONT PARA INFOMAR QUEM ALTEROU O STATUS , SE CLIENTE OU ENTREGADOR*/
     @Operation(summary = "Update an Order its by id and status id")
     @PutMapping("/{id}/{statusId}")
     @ResponseStatus(HttpStatus.OK)

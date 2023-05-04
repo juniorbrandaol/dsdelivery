@@ -17,7 +17,7 @@ class UserService {
         })
    }
 
-     /******************* USER **********************/
+    /******************* USER **********************/
 
     //SALVA UM PEDIDO
    async saveUser(payLoad:object) {
@@ -116,6 +116,32 @@ class UserService {
             if (error.response) { 
                 // client received an error response (5xx, 4xx)
                 return Promise.reject(error.response.status)
+              } else if (error.request) { 
+                // client never received a response, or request never left 
+                return Promise.reject(error)
+              } else { 
+                // anything else 
+                return Promise.reject(error)
+              } 
+        })
+    }
+
+      /******************** Orders *********************/
+    
+    async fetchOrdersByStatus(statusId:any) {
+       
+        return axios({
+            url: BASE_URL + "/orders/statusId/"+statusId,
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " +await storage.getToken(),
+            }
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+            if (error.response) { 
+                // client received an error response (5xx, 4xx)
+                return Promise.reject(error.response)
               } else if (error.request) { 
                 // client never received a response, or request never left 
                 return Promise.reject(error)

@@ -56,8 +56,7 @@ function OrderList(){
            setOrders(response.data);
        })
       }
-    }
-    catch(error:any){
+    }catch(error:any){
      toast.error("Erro: " + error.code) ;
     }
   }

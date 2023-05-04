@@ -17,6 +17,7 @@ public class OrderController {
 
     @Autowired
     private OrderServiceImpl service;
+
     @Operation(summary = "Get all orders")
     @GetMapping()
     @ResponseStatus(value = HttpStatus.OK)
@@ -25,10 +26,19 @@ public class OrderController {
     }
 
     @Operation(summary = "Return an Order by id")
-    @GetMapping(value="/orderId/{orderId}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/orderId/{orderId}")
     @ResponseStatus(HttpStatus.OK)
     public OrderDto findByOrderId( @Parameter(description = "id of order to be searched") @PathVariable Long orderId){
         OrderDto dto = service.findByOrderId(orderId);
         return dto;
     }
+
+    @Operation(summary = "Return an Order by status")
+    @GetMapping(value="/statusId/{statusId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderDto> findAllByStatus( @Parameter(description = "id of status to be searched") @PathVariable int statusId){
+        List<OrderDto> dto = service.findAllByStatus(statusId);
+        return dto;
+    }
+
 }

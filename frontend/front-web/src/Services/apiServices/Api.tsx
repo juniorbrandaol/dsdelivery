@@ -231,7 +231,7 @@ class UserService {
    async listOrdersByUserId(userId:number) {
 
     return axios({
-        url: BASE_URL + "/orders/userId/"+userId,
+        url: BASE_URL + "/orders/getAll/userId/"+userId,
         method: "GET",
         headers: {
             "Authorization": "Bearer "+ await storage.getToken(),

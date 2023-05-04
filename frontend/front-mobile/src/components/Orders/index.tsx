@@ -20,14 +20,14 @@ export default function Orders() {
 
   useEffect(()=>{
     if(isFocused){
-    //  fetchOrders();
+      fetchOrders();
     }
   },[isFocused])
 
   const fetchOrders = async () => {
     setIsLoading(true);
     try{
-       await userService.findAllOrders().then(response=>{
+       await userService.fetchOrdersByStatus(0).then(response=>{
           setOrders(response.data);
        })
     }
@@ -81,7 +81,7 @@ export default function Orders() {
                  key={item.id}
                  onPress={()=>handleOnPress(item)}
               >
-                 <OrderCard order={item}/>
+                 <OrderCard order={item} detailsOrder={false}/>
               </TouchableWithoutFeedback>
             ))
            )

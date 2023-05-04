@@ -61,6 +61,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<OrderDto> findAllByStatusId(int status) {
+        OrderStatus statusId= OrderStatus.valueOf(status);
+        List<Order> list = repository.findAllByStatusId(statusId);
+        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<OrderDto> findAllByUserIdAndStatus(Long id,int status) {
         User user = userRepository.getReferenceById(id);
         OrderStatus statusId= OrderStatus.valueOf(status);

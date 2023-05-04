@@ -11,12 +11,16 @@ dayjs.extend(relativeTime);
 
 type Props={
   order:Order;
+  detailsOrder: boolean;
 }
 
-function OrderCard({order}:Props) {
+function OrderCard({order,detailsOrder}:Props) {
 
   const dateFromNow=(date:string)=>{
     return dayjs(date).fromNow();
+  }
+  const dateFromDate=(date:any)=>{
+    return dayjs(date).format('dddd h:mm');
   }
 
   return (
@@ -25,15 +29,25 @@ function OrderCard({order}:Props) {
          <Text style={styles.orderName}>Pedido {order.id}</Text>
          <Text style={styles.orderPrice}>{formatPrice(order.total,'BRL',2)}</Text>
       </View>
-      <Text style={styles.text}> {dateFromNow(order.moment)}</Text>
+      <Text style={styles.text}>Realizado {dateFromDate(order.moment)}, {dateFromNow(order.moment)}</Text>
+      <View style={styles.line}></View>
       <View style={styles.productsList}>
          {
           order.products.map(item=>(
             <Text style={styles.text} key={item.id}>{item.name}</Text>
           ))
          }
-         
       </View>
+      {detailsOrder===true ?
+       <View>
+         <View style={styles.line}></View>
+         <View style={styles.address}>
+            <Text style={styles.addressName}>{order.address}</Text>
+         </View>
+       </View>
+      :
+       <></>
+      }
     </View>
   );
 }

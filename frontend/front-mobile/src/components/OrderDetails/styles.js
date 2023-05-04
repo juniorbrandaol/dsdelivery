@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     paddingRight: '5%',
     paddingLeft: '5%'
   },
+
   button: {
     backgroundColor: '#DA5C5C',
     flexDirection: 'row',

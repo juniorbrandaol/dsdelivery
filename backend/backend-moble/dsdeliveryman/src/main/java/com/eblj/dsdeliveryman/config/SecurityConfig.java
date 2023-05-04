@@ -34,7 +34,7 @@ public class SecurityConfig  {
     };
     private static final String[] OPERATOR_OR_ADMIN ={"/users/userisauthenticated",
             "/orders/userId/**","/users/currentusername","/orders/pending","/vehicles/save,",
-            "/vehicles/userId/**", "/orders/**","/orders/orderId/**"
+            "/vehicles/userId/**", "/orders/**","/orders/orderId/**","/orders","/orders/statusId/**"
     };
     private static final String[]  ADMIN ={"/users/**"};
     private static final String[] SWAGGER = {

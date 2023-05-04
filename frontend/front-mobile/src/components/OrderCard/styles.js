@@ -47,11 +47,30 @@ const styles = StyleSheet.create({
       color: '#DA5C5C',
       fontFamily: 'OpenSans_700Bold'
     },
+    line:{
+      width:'95%',
+      alignSelf:"center",
+      borderWidth:0.5,
+      borderColor:'#e3e1e1',
+      marginTop:15
+    },
     productsList: {
       borderTopColor: '#E6E6E6',
-      borderTopWidth: 1,
-      marginTop: 20,
-      paddingTop: 15
+      marginTop: 10,
+      paddingTop: 10
+    },
+    address:{
+      width:'95%',
+      justifyContent:'center',
+    },
+    addressName:{
+      fontWeight: 'bold',
+      fontSize: 14,
+      lineHeight: 25,
+      textAlign: 'left',
+      letterSpacing: -0.24,
+      color: '#DA5C5C',
+      fontFamily: 'OpenSans_700Bold'
     }
   
 });

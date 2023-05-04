@@ -10,6 +10,7 @@ public interface OrderService {
     List<OrderDto> findAll();
     List<OrderDto> findAllPending();
     List<OrderDto> findAllByUserId(Long id);
+    List<OrderDto> findAllByStatusId(int status);
     List<OrderDto> findAllByUserIdAndStatus(Long id, int status);
     Order insert(OrderDto obj);
     OrderDto updateDelivery(Long id,int status);

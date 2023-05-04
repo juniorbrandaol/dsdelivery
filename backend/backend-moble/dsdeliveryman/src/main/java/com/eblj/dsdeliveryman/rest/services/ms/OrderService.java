@@ -7,9 +7,7 @@ import java.util.List;
 public interface OrderService {
     OrderDto findByOrderId(Long id);
     List<OrderDto> findAll();
-    List<OrderDto> findAllPending();
-    List<OrderDto> findAllByUserId(Long id);
-    List<OrderDto> findAllByUserIdAndStatus(Long id, int status);
-    OrderDto updateDelivery(Long id,int status);
+    List<OrderDto> findAllByStatus(int status);
+
 
 }
