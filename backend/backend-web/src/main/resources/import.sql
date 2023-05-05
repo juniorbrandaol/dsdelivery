@@ -27,6 +27,22 @@ INSERT INTO tb_order (status,client_id, latitude, longitude, address, moment,tot
 
 INSERT INTO tb_company (name,cnpj,latitude, longitude, address) VALUES ('EBLJ Company','07.818.356/0001-86', -23.561680, -46.656139, 'Avenida Paulista, 1500');
 
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,1 , 1);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,1 , 4);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,4,2 , 2);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,4,2 , 5);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,2 , 8);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,3 , 3);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,4,3 , 4);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,4 , 2);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,4 , 6);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,4,5 , 4);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,5 , 6);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,4,6 , 5);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,6 , 1);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,7 , 7);
+INSERT INTO tb_order_item (price,quantity, product_id,order_id) VALUES (59.9,2,7 , 5);
+
 INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 1);
 INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 4);
 INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 2);

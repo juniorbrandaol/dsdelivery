@@ -90,17 +90,16 @@ public class OrderServiceImpl implements OrderService {
             order.getProducts().add(product);
         }
         List<OrderItem> items= toOrderItem(order,dto.getItems());
-        repository.save(order);
-        orderItemRepository.saveAll(items);
         order.setItems(items);
         order.setTotal(order.getTotal());
         order = repository.save(order);
+        orderItemRepository.saveAll(items);
         return order;
     }
 
     @Override
     @Transactional
-    public OrderDto updateDelivery(Long id,int status) {
+    public OrderDto updateStatus(Long id,int status) {
         try {
             Order order = repository.getReferenceById(id);
             OrderStatus statusId= OrderStatus.valueOf(status);

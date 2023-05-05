@@ -1,12 +1,11 @@
 package com.eblj.dsdeliveryman.controllers.ms;
 
-import com.eblj.dsdeliveryman.dto.OrderDto;
+import com.eblj.dsdeliveryman.dto.ms.OrderDto;
 import com.eblj.dsdeliveryman.rest.services.impl.ms.OrderServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +38,14 @@ public class OrderController {
     public List<OrderDto> findAllByStatus( @Parameter(description = "id of status to be searched") @PathVariable int statusId){
         List<OrderDto> dto = service.findAllByStatus(statusId);
         return dto;
+    }
+    @Operation(summary = "Updating an Order by status")
+    @PutMapping(value="/{orderId}/{statusId}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderDto updateStatus(
+            @Parameter(description = "id of order to be searched") @PathVariable Long orderId,
+            @Parameter(description = "id of status to be searched") @PathVariable int statusId){
+            return service.updateStatus(orderId,statusId);
     }
 
 }

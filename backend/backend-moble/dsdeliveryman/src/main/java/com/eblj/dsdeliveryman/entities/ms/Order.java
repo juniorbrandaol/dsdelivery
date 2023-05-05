@@ -1,37 +1,19 @@
 package com.eblj.dsdeliveryman.entities.ms;
 import com.eblj.dsdeliveryman.entities.User;
 import com.eblj.dsdeliveryman.enuns.OrderStatus;
-import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.*;
-@Table(name = "tb_order")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
-    private String address;
-    @Column(nullable = false)
-    private Double latitude;
-    @Column(nullable = false)
-    private Double longitude;
-    @Column(nullable = false)
-    private Instant moment;
-    @Column(nullable = false)
-    private OrderStatus status;
-    @Column(nullable = false)
-    @ManyToMany
-    @JoinTable(name = "tb_order_product",
-            joinColumns =  @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products = new HashSet<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    private User client;
 
-    @OneToMany(mappedBy = "id.order", fetch = FetchType.LAZY)
+public class Order {
+    private Long id;
+    private String address;
+    private Double latitude;
+    private Double longitude;
+    private Instant moment;
+    private OrderStatus status;
+    private Set<Product> products = new HashSet<>();
+    private User client;
     private List<OrderItem> items = new ArrayList<>();
 
     private Double total;

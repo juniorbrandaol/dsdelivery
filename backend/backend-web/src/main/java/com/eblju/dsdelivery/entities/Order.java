@@ -1,6 +1,7 @@
 package com.eblju.dsdelivery.entities;
 
 import com.eblju.dsdelivery.enuns.OrderStatus;
+
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.*;
@@ -28,7 +29,7 @@ public class Order {
        inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private Set<Product> products = new HashSet<>();
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)//***
     @JoinColumn(name = "client_id")
     private User client;
 
@@ -127,6 +128,7 @@ public class Order {
         if (!(o instanceof Order order)) return false;
         return Objects.equals(getId(), order.getId());
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(getId());

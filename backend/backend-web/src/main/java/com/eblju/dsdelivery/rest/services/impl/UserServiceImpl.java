@@ -2,8 +2,6 @@ package com.eblju.dsdelivery.rest.services.impl;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-
 import com.eblju.dsdelivery.dto.RoleDTO;
 import com.eblju.dsdelivery.dto.UserDTO;
 import com.eblju.dsdelivery.dto.UserInsertDTO;
@@ -20,12 +18,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
-
 	@Autowired
 	private PasswordEncoder encoder;
 	@Autowired
@@ -40,7 +35,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 	}
-
 	@Override
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
@@ -58,7 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		entity.setCpf(dto.getCpf());
 		entity.setLastName(dto.getLastName());
 		entity.setEmail(dto.getEmail());
-
+		entity.setPhone(dto.getPhone());
 		entity.getRoles().clear();// apenas para limpar as categorias que possam vir na entity
 		for(RoleDTO roleDto: dto.getRolles()) {
 			Role roles = roleRepository.getReferenceById(roleDto.getId());
@@ -71,8 +65,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		User user =  repository.findByEmail(userEmail)
 				.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
 		Set<Role> rolesUser= user.getRoles();
-
-
 		int size=0;
 		String[] roles = new String[rolesUser.size()];
 		for (Role x : rolesUser) {

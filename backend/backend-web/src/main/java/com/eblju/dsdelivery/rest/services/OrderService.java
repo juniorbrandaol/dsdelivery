@@ -13,7 +13,7 @@ public interface OrderService {
     List<OrderDto> findAllByStatusId(int status);
     List<OrderDto> findAllByUserIdAndStatus(Long id, int status);
     Order insert(OrderDto obj);
-    OrderDto updateDelivery(Long id,int status);
+    OrderDto updateStatus(Long id,int status);
     OrderDto findByOrderId(Long id);
 
 }

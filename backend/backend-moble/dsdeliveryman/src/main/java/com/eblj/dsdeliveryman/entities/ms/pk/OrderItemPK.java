@@ -1,24 +1,17 @@
-package com.eblj.dsdeliveryman.entities.ms;
+package com.eblj.dsdeliveryman.entities.ms.pk;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.eblj.dsdeliveryman.entities.ms.Order;
+import com.eblj.dsdeliveryman.entities.ms.Product;
 
 import java.io.Serializable;
 
 /*
  CLASSE AUXILIAR
  */
-@Embeddable
 public class OrderItemPK implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ManyToOne()
-    @JoinColumn(name="order_id")
     private Order order;
-    @ManyToOne
-    @JoinColumn(name="product_id")
     private Product product;
-
     public OrderItemPK(){}
     public Order getOrder() {
         return order;

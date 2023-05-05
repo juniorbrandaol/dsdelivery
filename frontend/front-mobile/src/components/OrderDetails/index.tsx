@@ -24,10 +24,10 @@ export default function OrderDatails({route}:Props) {
   const handleStartNavigation=()=>{
      Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${order.latitude},${order.longitude}`)
   }
-//onPress={()=>handleConfirmDelivery()}
+
   return (
     <>
-       <Header/> 
+       <Header goback={true}/> 
         <View style={styles.container}>
           <OrderCard order={order} detailsOrder={true}/>
           <RectButton style={styles.button} onPress={handleStartNavigation}>

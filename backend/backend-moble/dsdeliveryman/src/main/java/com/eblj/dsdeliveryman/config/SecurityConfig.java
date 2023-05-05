@@ -32,11 +32,11 @@ public class SecurityConfig  {
     private static final String[] PUBLIC ={ "/users/auth","/products",
             "/users/save","/h2-console/**"
     };
-    private static final String[] OPERATOR_OR_ADMIN ={"/users/userisauthenticated",
+    private static final String[] OPERATOR_OR_ADMIN ={"/users/userisauthenticated","/users/ms/**",
             "/orders/userId/**","/users/currentusername","/orders/pending","/vehicles/save,",
-            "/vehicles/userId/**", "/orders/**","/orders/orderId/**","/orders","/orders/statusId/**"
+            "/vehicles/userId/**", "/orders/**","/orders/orderId/**","/orders/**","/orders/statusId"
     };
-    private static final String[]  ADMIN ={"/users/**"};
+    private static final String[]  ADMIN ={"/users/**","/orders/**"};
     private static final String[] SWAGGER = {
             "/v2/api-docs/**",
             "/swagger-resources",

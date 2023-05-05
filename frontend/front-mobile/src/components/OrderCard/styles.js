@@ -59,6 +59,10 @@ const styles = StyleSheet.create({
       marginTop: 10,
       paddingTop: 10
     },
+    amount:{
+      width:'95%',
+      alignItems:"flex-end",
+    },
     address:{
       width:'95%',
       justifyContent:'center',
@@ -68,10 +72,23 @@ const styles = StyleSheet.create({
       fontSize: 14,
       lineHeight: 25,
       textAlign: 'left',
-      letterSpacing: -0.24,
+      letterSpacing: 1,
       color: '#DA5C5C',
       fontFamily: 'OpenSans_700Bold'
-    }
+    },
+    clientDetails:{
+      flexDirection:'row',
+      paddingVertical:5
+    },
+    textClient: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      lineHeight: 19,
+      paddingRight:10,
+      letterSpacing: 2,
+      color: '#DA5C5C',
+      fontFamily: 'OpenSans_700Bold'
+    },
   
 });
 export default styles;

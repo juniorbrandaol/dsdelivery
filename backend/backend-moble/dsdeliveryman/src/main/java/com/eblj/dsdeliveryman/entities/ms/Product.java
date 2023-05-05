@@ -1,22 +1,17 @@
 package com.eblj.dsdeliveryman.entities.ms;
 
-import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-@Table(name = "tb_product")
+
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Double price;
-    @Column(columnDefinition = "TEXT")
+
     private String description;
     private String imageUri;
-
-    @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
     public Product(){}
 

@@ -46,6 +46,7 @@ public class UserController  {
 	public UserDTO save( @Validated @RequestBody UserInsertDTO dto) {
 		return service.save(dto);
 	}
+
 	@Operation(summary = "Get an User Authorization ")
 	@PostMapping("/auth")
 	public TokenDTO authenticate(@RequestBody CredentialDTO dto){

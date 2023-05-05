@@ -8,10 +8,9 @@ const styles = StyleSheet.create({
     },
     image_login:{
       alignSelf:'center',
-      marginTop:5,
+      marginTop:35,
       width:'35%',
       height:'15%',
-      resizeMode: 'stretch',
     },
     header:{
       backgroundColor:'#DA5C5C',

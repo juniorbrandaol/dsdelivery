@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_user")
-@JsonIgnoreProperties(allowSetters = true)
 public class User implements  Serializable{
 	private static final long serialVersionUID = 5177019431887513952L;
 	@Id
@@ -21,6 +20,8 @@ public class User implements  Serializable{
 	private String password;
 	@Column(unique = true)
 	private String cpf;
+	@Column(unique = true)
+	private String phone;
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders;
 	@ManyToMany(fetch = FetchType.EAGER)// garante que sempre que for carregar o usuario, vai carregar as roles dele obrigatoriamente
@@ -29,69 +30,57 @@ public class User implements  Serializable{
 	             @JoinColumn(name="role_id")  
 	          )
 	private Set<Role> roles = new HashSet<>();
-	
 	public User() {super();}
-
-	public User(Long id,String cpf, String firstName, String lastName, String email, String password) {
+	public User(Long id,String cpf, String firstName, String lastName, String email, String password,String phone) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.cpf =cpf;
+		this.phone = phone;
 	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public Set<Role> getRoles() {
 		return roles;
 	}
-
 	public String getCpf() {
 		return cpf;
 	}
-
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	public String getPhone() {return phone;	}
+	public void setPhone(String phone) {this.phone = phone;}
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -110,7 +99,6 @@ public class User implements  Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-
 	public boolean hasHole(String roleName) {
 		for (Role role : roles) {
 			if (role.getAuthority().equals(roleName)) {

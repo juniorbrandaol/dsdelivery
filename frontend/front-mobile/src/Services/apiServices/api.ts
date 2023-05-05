@@ -102,10 +102,10 @@ class UserService {
     }
 
     //VERIFICA SE AUTENTICADO
-    async userIsAuthenticated() {
-
+    async fetchUser (userId:any){
+    
         return axios({
-            url: BASE_URL + "/users/userisauthenticated",
+            url: BASE_URL + "/users/ms/"+userId,
             method: "GET",
             headers: {
                 "Authorization": "Bearer "+ await storage.getToken(),

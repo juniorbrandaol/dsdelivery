@@ -73,13 +73,13 @@ public class OrderController {
 
     /*REFAZER ESSE ENDPONT PARA INFOMAR QUEM ALTEROU O STATUS , SE CLIENTE OU ENTREGADOR*/
     @Operation(summary = "Update an Order its by id and status id")
-    @PutMapping("/{id}/{statusId}")
+    @PutMapping("/{orderid}/{statusId}")
     @ResponseStatus(HttpStatus.OK)
-    public OrderDto updateDelivery(
-            @Parameter(description = "id of order to be searched") @PathVariable Long id,
+    public OrderDto updateStatus(
+            @Parameter(description = "id of order to be searched") @PathVariable Long orderid,
             @Parameter(description = "id of status to be searched") @PathVariable int statusId)
         {
-        OrderDto dto =service.updateDelivery(id,statusId);
+        OrderDto dto =service.updateStatus(orderid,statusId);
         return dto;
     }
 

@@ -1,7 +1,7 @@
 package com.eblj.dsdeliveryman.dto;
 
 import com.eblj.dsdeliveryman.entities.ms.OrderItem;
-import com.eblj.dsdeliveryman.entities.ms.OrderItemPK;
+import com.eblj.dsdeliveryman.entities.ms.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.validation.constraints.NotBlank;
 

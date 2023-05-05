@@ -65,7 +65,7 @@ export default function Orders() {
 
   return (
     <>
-      <Header/>
+      <Header goback={false}/>
         <ScrollView  
            style={styles.container}
            showsVerticalScrollIndicator={false}

@@ -35,9 +35,9 @@ public class SecurityConfig  {
     };
     private static final String[] OPERATOR_OR_ADMIN ={
             "/companies/**","/orders/userId/**","/users/currentusername","/orders/orderId/**","/orders**",
-            "/orders/statusId/**"
+            "/orders/statusId/**","/users/**"
     };
-    private static final String[]  ADMIN ={"/users/**","/orders/userId/**"};
+    private static final String[]  ADMIN ={"/users/**","/orders/userId/**","/orders/**","/orders/statusId/**"};
     private static final String[] SWAGGER = {
             "/v2/api-docs/**",
             "/swagger-resources",

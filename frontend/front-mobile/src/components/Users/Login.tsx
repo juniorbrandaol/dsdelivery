@@ -15,7 +15,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? -100 : 0
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? -200 : 0
   const behavior = Platform.OS === 'ios' ? "position" : 'position'
  
   const data={
@@ -71,7 +71,7 @@ export default function Login() {
     <>
       <View style={styles.container} >
           <Image style={styles.image_login} source={require('../../assets/deliveryman.png')}/>
-          <Text style={styles.title}>Faça seu Login</Text>
+          <Text  style={styles.title}>Faça seu Login</Text>
          
           <KeyboardAvoidingView
             style={{ flex:1 }}

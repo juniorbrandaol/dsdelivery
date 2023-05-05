@@ -1,4 +1,4 @@
-package com.eblj.dsdeliveryman.dto;
+package com.eblj.dsdeliveryman.dto.ms;
 
 import com.eblj.dsdeliveryman.entities.ms.Product;
 import jakarta.validation.constraints.NotBlank;

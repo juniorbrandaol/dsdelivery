@@ -48,9 +48,6 @@ public class OrderDto {
         status = entity.getStatus();
         total = entity.getTotal();
         client = entity.getClient().getId();
-        products= entity.getProducts()
-                        .stream()
-                        .map( obj-> new ProductDto(obj)).collect(Collectors.toList());
         items = entity.getItems()
                         .stream()
                         .map( obj-> new OrderItemDTO(obj)).collect(Collectors.toList());
@@ -59,11 +56,9 @@ public class OrderDto {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public Long getClient() {
         return client;
     }
@@ -73,54 +68,42 @@ public class OrderDto {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
     public Double getLatitude() {
         return latitude;
     }
-
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
-
     public Double getLongitude() {
         return longitude;
     }
-
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
-
     public Instant getMoment() {
         return moment;
     }
-
     public void setMoment(Instant moment) {
         this.moment = moment;
     }
-
     public OrderStatus getStatus() {
         return status;
     }
-
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
-
     public Double getTotal() {
         return total;
     }
-
     public void setTotal(Double total) {
         this.total = total;
     }
     public List<ProductDto> getProducts() {
         return products;
     }
-
     public List<OrderItemDTO> getItems() {
 
         return items.stream().collect(Collectors.toList());

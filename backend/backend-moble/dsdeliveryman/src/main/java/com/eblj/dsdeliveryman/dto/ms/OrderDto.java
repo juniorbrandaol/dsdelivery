@@ -1,5 +1,6 @@
-package com.eblj.dsdeliveryman.dto;
+package com.eblj.dsdeliveryman.dto.ms;
 
+import com.eblj.dsdeliveryman.dto.OrderItemDTO;
 import com.eblj.dsdeliveryman.entities.ms.Order;
 import com.eblj.dsdeliveryman.enuns.OrderStatus;
 
@@ -19,7 +20,6 @@ public class OrderDto {
     private Instant moment;
     private OrderStatus status;
     private Double total;
-    private List<ProductDto> products = new ArrayList<>();
     private List<OrderItemDTO> items= new ArrayList<>();
 
     public OrderDto(){}
@@ -44,9 +44,6 @@ public class OrderDto {
         moment = entity.getMoment();
         status = entity.getStatus();
         total = entity.getTotal();
-        products= entity.getProducts()
-                        .stream()
-                        .map( obj-> new ProductDto(obj)).collect(Collectors.toList());
         items = entity.getItems()
                         .stream()
                         .map( obj-> new OrderItemDTO(obj)).collect(Collectors.toList());
@@ -113,10 +110,6 @@ public class OrderDto {
     public void setTotal(Double total) {
         this.total = total;
     }
-    public List<ProductDto> getProducts() {
-        return products;
-    }
-
     public List<OrderItemDTO> getItems() {
 
         return items.stream().collect(Collectors.toList());
