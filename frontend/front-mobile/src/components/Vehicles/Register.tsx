@@ -9,7 +9,7 @@ import userService from '../../Services/apiServices/api';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Messages from '../../utils/Messages';
 
-import { Vehicle } from '../../models/Vehicle';
+import { VehicleModel } from '../../models/VehicleModel';
 
 export default function Register() {
 
@@ -17,7 +17,7 @@ export default function Register() {
   const behavior = Platform.OS === 'ios' ? "position" : 'position'
   const navigation = useNavigation()
 
-  const [vehicle,setVehicle] = useState<Vehicle>({
+  const [vehicle,setVehicle] = useState<VehicleModel>({
     vehicleType:[ 
      {label: 'CARRO', value: 'CARRO'},
      {label: 'MOTOCICLETA', value: 'MOTOCICLETA'}  ,
@@ -77,7 +77,7 @@ export default function Register() {
     try{  
         await userService.saveVehicle(data);
         Messages("Veículo salvo. ",'success', 'top') ;
-        navigation.navigate('Login') 
+        navigation.navigate('Login' as never) 
     }
     catch(error: any)  {
       if(error===403){

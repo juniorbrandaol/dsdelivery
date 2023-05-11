@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
     },
-    image_login:{
+    imageLogin:{
       alignSelf:'center',
       marginTop:35,
       width:'35%',

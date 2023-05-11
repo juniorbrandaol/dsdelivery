@@ -19,7 +19,7 @@ export type OrdersList={
   moment:string;
   amount : number;
   status:string;
-  products:[
+  items:[
     {
     id : number;
     name : string;

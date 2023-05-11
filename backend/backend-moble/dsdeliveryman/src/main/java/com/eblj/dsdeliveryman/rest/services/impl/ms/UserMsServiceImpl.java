@@ -1,6 +1,6 @@
 package com.eblj.dsdeliveryman.rest.services.impl.ms;
 
-import com.eblj.dsdeliveryman.dto.ms.UserMsDTO;
+import com.eblj.dsdeliveryman.dto.ms.UserDto;
 import com.eblj.dsdeliveryman.feignEntities.UserFeignClient;
 import com.eblj.dsdeliveryman.rest.services.exceptions.ResourceNotFoundException;
 import com.eblj.dsdeliveryman.rest.services.ms.UserMsService;
@@ -16,7 +16,7 @@ public class UserMsServiceImpl implements UserMsService {
     private UserFeignClient userFeignClient;
     @Override
     @Transactional(readOnly = true)
-    public UserMsDTO findById(Long id) {
+    public UserDto findById(Long id) {
         try {
          return userFeignClient.findById(id);
         }catch (FeignException.FeignClientException e){

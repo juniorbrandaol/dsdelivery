@@ -1,8 +1,11 @@
 import {useEffect, useState,useCallback} from 'react'
 import { useLocation,useNavigate } from 'react-router-dom';
 import './styles.css';
-import {ReactComponent as OrderPending} from '../../assets/imgs/orderpending.svg'
-import {ReactComponent as OrderDelivered} from '../../assets/imgs/orderdelivered.svg'
+import {ReactComponent as OrderPending} from '../../assets/imgs/pending.svg'
+import {ReactComponent as OrderAccepted} from '../../assets/imgs/accepted.svg'
+import {ReactComponent as OrderRejected} from '../../assets/imgs/rejected.svg'
+import {ReactComponent as OrderDispatched} from '../../assets/imgs/dispatched.svg'
+import {ReactComponent as OrderDelivered} from '../../assets/imgs/delivered.svg'
 import { toast } from "react-toastify";
 
 import Navbar from '../Navbar';
@@ -28,10 +31,24 @@ function OrderDetails(){
   }
   
   useEffect(()=>{
-   
-    checkIsConnected()
+    checkIsConnected();
     setOrders(route.state.order)
   },[])
+
+  const fetchStatusOrder=()=>{
+
+    if(route.state.order.status==='PENDING'){
+      return <OrderPending className='order-details-image-status'/>
+    }else if(route.state.order.status==='ACCEPTED'){
+      return <OrderAccepted className='order-details-image-status'/>
+    }else if(route.state.order.status==='REJECTED'){
+      return <OrderRejected className='order-details-image-status'/>
+    }else if(route.state.order.status==='DISPATCHED'){
+      return <OrderDispatched className='order-details-image-status'/>
+    }else{
+      return <OrderDelivered className='order-details-image-status'/>
+    }
+  }
 
   const checkIsConnected=useCallback(async()=>{
   
@@ -75,17 +92,14 @@ function OrderDetails(){
             <div className='order-details-card-content'>
                <div className='order-details-status'>
                  <h3 className='order-details-card-status'>PEDIDO {orders?.status}</h3>
-                 {orders?.status==='PENDING'?
-                   <>
-                     <OrderPending className='order-details-image-status'/>
-                     <button 
-                        className='order-details-send-status'
-                        onClick={updateStatus}
-                     >RECEBI O PEDIDO
-                     </button>
-                   </>
+                 {fetchStatusOrder()}
+                 {orders?.status==='DISPATCHED'?
+                    <button 
+                      className='order-details-send-status'
+                      onClick={updateStatus}
+                    >RECEBI O PEDIDO</button>
                  :
-                   <OrderDelivered className='order-details-image-status'/>
+                 <></>
                  }
                </div> 
             </div>
@@ -94,11 +108,11 @@ function OrderDetails(){
             </span>
             <div className='order-details-style'>      
                <span className='order-details-steps'><strong>Detalhes do pedido</strong> </span>
-               <span className='order-details-steps'><strong>itens: {orders?.products.length}</strong></span>
+               <span className='order-details-steps'><strong>itens: {orders?.items.length}</strong></span>
             </div>
             <div className='order-details-product'>
               {
-                  orders?.products.map( (item) =>{
+                  orders?.items.map( (item) =>{
                     return(
                       <div className='order-details-product-card'>
                         <div >

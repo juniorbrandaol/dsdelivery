@@ -31,13 +31,14 @@ public class SecurityConfig  {
 
     private static final String[] PUBLIC ={
             "/users/auth","/products","/orders/pending","/users/userisauthenticated",
-            "/users/save","/h2-console/**","/companies/id"
+            "/users/save","/h2-console/**","/companies/id","/orders/**"
     };
     private static final String[] OPERATOR_OR_ADMIN ={
-            "/companies/**","/orders/userId/**","/users/currentusername","/orders/orderId/**","/orders**",
-            "/orders/statusId/**","/users/**"
+            "/companies/**","/orders/userId/**","/users/currentusername","/orders/orderId/**",
+            "/orders/statusId/**","/users/**","/orders/**"
     };
-    private static final String[]  ADMIN ={"/users/**","/orders/userId/**","/orders/**","/orders/statusId/**"};
+    private static final String[]  ADMIN ={"/users/**","/orders/userId/**",
+            "/orders/statusId/**"};
     private static final String[] SWAGGER = {
             "/v2/api-docs/**",
             "/swagger-resources",

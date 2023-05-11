@@ -4,7 +4,6 @@ import { Fontisto,AntDesign } from '@expo/vector-icons';
 //HOMES
 import Order from "../components/Orders";
 import VehicleDetail from "../components/Vehicles/VehicleDetail";
-import Profile from "../components/Users/Profile";
 import Setting from "../components/Settings/Setting";
 
 const Tab = createBottomTabNavigator();
@@ -40,11 +39,7 @@ export default function Tabs() {
               size = 35;
               padding=0;
               break;
-            case 'Profile':
-              iconName = 'profile';
-              size = 35;
-              padding=0;
-              break;  
+            
             case 'Setting':
               iconName = 'setting';
               size = 35;
@@ -71,10 +66,7 @@ export default function Tabs() {
         headerShown: false,
         tabBarLabel: () => { return null },
       }} />
-      <Tab.Screen name="Profile" component={Profile} options={{
-        headerShown: false,
-        tabBarLabel: () => { return null },
-      }} />
+      
       <Tab.Screen name="Setting" component={Setting} options={{
         headerShown: false,
         tabBarLabel: () => { return null },

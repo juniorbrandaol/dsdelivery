@@ -1,6 +1,6 @@
 package com.eblj.dsdeliveryman.entities.ms;
 import com.eblj.dsdeliveryman.entities.User;
-import com.eblj.dsdeliveryman.enuns.OrderStatus;
+import com.eblj.dsdeliveryman.enuns.ms.OrderStatus;
 
 import java.time.Instant;
 import java.util.*;
@@ -18,7 +18,7 @@ public class Order {
 
     private Double total;
     public Order(){}
-    public Order(Long id,User client, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
+    public Order(Long id, User client, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
         this.id = id;
         this.address = address;
         this.latitude = latitude;

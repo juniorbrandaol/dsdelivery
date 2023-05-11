@@ -4,11 +4,12 @@ import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-  
-    paddingRight: '5%',
-    paddingLeft: '5%'
+    flex:1,
   },
-
+  scroll:{
+    paddingRight: '5%',
+    paddingLeft: '5%',
+  },
   button: {
     backgroundColor: '#DA5C5C',
     flexDirection: 'row',

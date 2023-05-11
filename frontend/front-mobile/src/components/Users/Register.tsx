@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import userService from '../../Services/apiServices/api';
 
 import Messages from '../../utils/Messages';
-import { User } from '../../models/User';
+import { UserModel } from '../../models/UserModel';
 
 export default function Register() {
 
@@ -16,11 +16,11 @@ export default function Register() {
 
   const navigation = useNavigation()
 
-  const [_user,set_User] = useState<User>({
+  const [_user,set_User] = useState<UserModel>({
     firstName:'',
     lastName:'',
-    cpf:0,
-    phone:0,
+    cpf:'',
+    phone:'',
     email:'',
     password:''
   });
@@ -43,7 +43,7 @@ export default function Register() {
     try{  
         await userService.saveUser(data);
         Messages("Usuário salvo. ",'success', 'top') ;
-        navigation.navigate('Login') 
+        navigation.navigate('Login' as never) 
     }
     catch(error: any)  {
       if(error.status===403){
@@ -58,7 +58,7 @@ export default function Register() {
   }
 
   const handleOnPressRegister=()=>{
-    navigation.navigate('Register') 
+    navigation.navigate('Register' as never) 
   }
 
   const checkInputs=()=>{
@@ -71,11 +71,11 @@ export default function Register() {
        Messages('Informe o último nome. ', 'warning', 'top')
        return false;
      }
-     if(_user?.cpf===undefined || _user?.cpf===0){
+     if(_user?.cpf===undefined || _user?.cpf===''){
       Messages('Informe o cpf. ', 'warning', 'top')
       return false;
      }
-     if(_user?.phone===undefined || _user?.phone===0){
+     if(_user?.phone===undefined || _user?.phone===''){
       Messages('Informe o telefone. ', 'warning', 'top')
       return false;
      }
@@ -91,9 +91,9 @@ export default function Register() {
  }
 
  return (
-  <>
+  
     <View style={styles.container} >
-        <Image style={styles.image_login} source={require('../../assets/deliveryman.png')}/>
+        <Image style={styles.imageLogin} source={require('../../assets/deliveryman.png')}/>
         <Text style={styles.title}>Faça seu Cadastro</Text>
         <Text style={styles.subTitle}>Você receberá no email um código de verificação</Text>
         <KeyboardAvoidingView
@@ -148,7 +148,7 @@ export default function Register() {
           </ScrollView>
         </KeyboardAvoidingView>
      </View>
-  </>
+  
 );
 }
 

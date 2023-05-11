@@ -1,7 +1,7 @@
 package com.eblj.dsdeliveryman.rest.services.ms;
 
-import com.eblj.dsdeliveryman.dto.ms.UserMsDTO;
+import com.eblj.dsdeliveryman.dto.ms.UserDto;
 
 public interface UserMsService {
-    UserMsDTO findById(Long id);
+    UserDto findById(Long id);
 }

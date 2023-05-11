@@ -1,31 +1,18 @@
 package com.eblj.dsdeliveryman.entities.ms;
 
-import com.eblj.dsdeliveryman.entities.ms.pk.OrderItemPK;
-import jakarta.persistence.EmbeddedId;
+import com.eblj.dsdeliveryman.entities.ms.pk.OrderItemMsPK;
 import java.io.Serializable;
 public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+
+    private OrderItemMsPK id = new OrderItemMsPK();
     private Integer quantity;
     private Double price;
+    private Double total;
     public OrderItem() {
     }
-    public OrderItem(Order order, Product product, Integer quantity, Double price) {
-        id.setOrder(order);
-        id.setProduct(product);
-        this.quantity = quantity;
-        this.price = price;
-    }
-    public OrderItem(Product product, Integer quantity, Double price) {
-        id.setProduct(product);
-        this.quantity = quantity;
-        this.price = price;
-    }
-    public OrderItemPK getOrderItemPK(){
-        return id;
-    }
+
     public Order getOrder() {
         return id.getOrder();
     }
@@ -51,8 +38,11 @@ public class OrderItem implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
-    public Double getSubTotal() {
-        return price * quantity;
+    public void setTotal(Double total) { this.total = total; }
+    public Double getTotal(){
+        double sum = 0.0;
+        sum = price*quantity;
+        return sum;
     }
 
 }

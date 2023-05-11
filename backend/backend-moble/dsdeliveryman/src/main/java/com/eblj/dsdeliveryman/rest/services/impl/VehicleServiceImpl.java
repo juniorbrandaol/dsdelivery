@@ -82,7 +82,6 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<VehicleInteface> findByVehicleType(String type) {
         VehicleType vehicleType = VehicleType.valueOf(type);
-        System.out.println("========= "+vehicleType.name());
         List<VehicleInteface>  vehicles = repository.findByVehicleType(vehicleType.name());
         return  vehicles;
     }

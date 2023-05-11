@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import {View,Text,Image, TextInput} from 'react-native'
+import {View,Text,Image} from 'react-native'
 import styles from "./styles";
 import { useNavigation } from '@react-navigation/native';
 //API

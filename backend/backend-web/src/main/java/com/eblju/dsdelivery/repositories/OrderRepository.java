@@ -1,10 +1,10 @@
 package com.eblju.dsdelivery.repositories;
 
-import com.eblju.dsdelivery.dto.OrderDto;
 import com.eblju.dsdelivery.entities.Order;
 import com.eblju.dsdelivery.entities.User;
 import com.eblju.dsdelivery.enuns.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -36,4 +36,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
             " JOIN FETCH obj.products WHERE( obj.status=:status) ORDER BY obj.moment DESC")
     List<Order> findAllByStatusId(@Param("status") OrderStatus status);
 
+    @Modifying
+    @Query(value=" UPDATE Order order  SET order.status = :status "
+            + " WHERE order.id = :orderId")
+    void updateStatusByStatusId(@Param("orderId") Long orderId, @Param("status") OrderStatus status);
 }

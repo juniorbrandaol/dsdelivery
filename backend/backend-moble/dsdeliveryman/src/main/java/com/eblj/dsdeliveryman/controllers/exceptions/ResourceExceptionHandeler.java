@@ -103,5 +103,17 @@ public class ResourceExceptionHandeler {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
 	}
 
+	@ExceptionHandler(EmailException.class)
+	public ResponseEntity<StandardError> email(EmailException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError error = new StandardError();
+		error.setTimestamp(Instant.now());
+		error.setStatus(status.value());
+		error.setError("Email error");
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		return ResponseEntity.status(status).body(error);
+	}
+
 
 }

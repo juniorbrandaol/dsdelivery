@@ -26,7 +26,7 @@ public class UserDTO  {
 	@NotBlank(message = "Campo obrigatório.")
 	@Column(unique = true)
 	private String phone;
-	@Size(min = 16,max = 35,message = "E-mail muito longo.")
+	@Size(min = 15,max = 35,message = "E-mail deve conter no mínimo {min} e no máximo {max} caracteres.\"")
 	@Email(message = "Informe um email válido.")
 	@Column(unique = true)
 	private String email;

@@ -1,6 +1,6 @@
 package com.eblju.dsdelivery.rest.services.impl;
 
-import com.eblju.dsdelivery.dto.OrderDto;
+import com.eblju.dsdelivery.dto.OrderDTO;
 import com.eblju.dsdelivery.dto.OrderItemDTO;
 import com.eblju.dsdelivery.dto.ProductDto;
 import com.eblju.dsdelivery.entities.Order;
@@ -37,53 +37,53 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderDto> findAll() {
+    public List<OrderDTO> findAll() {
        List<Order> list = repository.findAllFetcher();
-        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+        return list.stream().map(obj-> new OrderDTO(obj)).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderDto> findAllPending() {
+    public List<OrderDTO> findAllPending() {
         List<Order> list = repository.findOrdersStatusPending();
-        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+        return list.stream().map(obj-> new OrderDTO(obj)).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderDto> findAllByUserId(Long id)  {
+    public List<OrderDTO> findAllByUserId(Long id)  {
 
         User user = userRepository.getReferenceById(id);
         user.setId(id);
         List<Order> list = repository.findOrdersByUserId(user);
-        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+        return list.stream().map(obj-> new OrderDTO(obj)).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderDto> findAllByStatusId(int status) {
+    public List<OrderDTO> findAllByStatusId(int status) {
         OrderStatus statusId= OrderStatus.valueOf(status);
         List<Order> list = repository.findAllByStatusId(statusId);
-        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+        return list.stream().map(obj-> new OrderDTO(obj)).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderDto> findAllByUserIdAndStatus(Long id,int status) {
+    public List<OrderDTO> findAllByUserIdAndStatus(Long id, int status) {
         User user = userRepository.getReferenceById(id);
         OrderStatus statusId= OrderStatus.valueOf(status);
         user.setId(id);
         List<Order> list = repository.findOrdersByUserIdAndStatus(user,statusId);
-        return list.stream().map(obj-> new OrderDto(obj)).collect(Collectors.toList());
+        return list.stream().map(obj-> new OrderDTO(obj)).collect(Collectors.toList());
     }
     @Override
     @Transactional
-    public Order insert(OrderDto dto) {
+    public Order insert(OrderDTO dto) {
 
         Long idCliente = dto.getClient();
         User user = userRepository
                 .findById(idCliente)
-                .orElseThrow(()->new ResourceNotFoundException("Usuário não encontrado "+idCliente ) );
+                .orElseThrow(()->new ResourceNotFoundException("Usuário não encontrado ") );
         Order order = new Order(null,user,dto.getAddress(),dto.getLatitude(),dto.getLongitude(), Instant.now(), OrderStatus.PENDING);
         for(ProductDto p: dto.getProducts()){
             Product product = productRepository.getReferenceById(p.getId());
@@ -99,13 +99,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderDto updateStatus(Long id,int status) {
+    public void updateStatus(Long id,int status) {
+
         try {
             Order order = repository.getReferenceById(id);
             OrderStatus statusId= OrderStatus.valueOf(status);
             order.setStatus(statusId);
-            order= repository.save(order);
-            return new OrderDto(order);
+            repository.updateStatusByStatusId(id,statusId);
+
         }
         catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Pedido não encontrado");
@@ -114,9 +115,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public OrderDto findByOrderId(Long id) {
+    public OrderDTO findByOrderId(Long id) {
         Order dto = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Erro"));
-        return new OrderDto(dto);
+        return new OrderDTO(dto);
     }
 
     private List<OrderItem> toOrderItem(Order order, List<OrderItemDTO> items){
@@ -136,6 +137,7 @@ public class OrderServiceImpl implements OrderService {
                     orderItem.setPrice(product.getPrice());
                     orderItem.setOrder(order);
                     orderItem.setProduct(product);
+                    orderItem.setTotal(orderItem.getTotal());
                     return  orderItem;
                 } ).collect(Collectors.toList());
     }

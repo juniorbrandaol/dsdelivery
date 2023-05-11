@@ -18,6 +18,7 @@ public class OrderItemDTO {
     private String name;
     private String description;
     private  String imageUri;
+    private Double total;
 
     public OrderItemDTO(){}
 
@@ -28,6 +29,7 @@ public class OrderItemDTO {
         this.name = obj.getProduct().getName();
         this.description = obj.getProduct().getDescription();
         this.imageUri = obj.getProduct().getImageUri();
+        this.total = obj.getTotal();
     }
 
     public Integer getQuantity() {
@@ -66,4 +68,11 @@ public class OrderItemDTO {
         return imageUri;
     }
 
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 }

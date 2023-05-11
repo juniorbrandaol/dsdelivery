@@ -11,7 +11,8 @@ import {AntDesign } from '@expo/vector-icons';
 
 export default function Profile() {
 
-  const [user,setUser] = useState();
+  const [user,setUser] = useState<any>();
+  const navigation = useNavigation();
   
   useEffect(()=>{
     
@@ -31,14 +32,18 @@ export default function Profile() {
       }
     }
   }
-   
+  
+  const backHandleOnPress=()=>{
+    navigation.goBack();
+  }
+  
   return (
     <>
       <View style={styles.container} >
          <StatusBar hidden={false} backgroundColor={'#DA5C5C'} />
          <View style={styles.header}>
             <View style={styles.titleHeader}>
-                <RectButton style={styles.headerButton} onPress={()=>alert('1')}>
+                <RectButton style={styles.headerButton} onPress={backHandleOnPress}>
                   <AntDesign name="left" size={24} color="black" />
                 </RectButton >
                 <RectButton style={styles.headerButton} onPress={()=>alert('1')}>

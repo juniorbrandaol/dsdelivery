@@ -2,7 +2,7 @@
 import React,{useState,useEffect} from 'react';
 import {View,Text} from 'react-native';
 import styles from './styles.js'
-import { Order } from '../../models/Order.js';
+import { OrderModel } from '../../models/OrderModel.js';
 import {formatPrice}  from '../../utils/Formatters';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
@@ -10,25 +10,33 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { MaterialIcons } from '@expo/vector-icons';
 //API
 import userService from '../../Services/apiServices/api';
-import { set } from 'react-native-reanimated';
 
 dayjs.locale('pt-br');
 dayjs.extend(relativeTime);
 
 type Props={
-  order:Order;
-  detailsOrder: boolean;
+  order:OrderModel;
+  showDetailsOrder: boolean;
+  selectedDeliveries?:any;
 }
 
-function OrderCard({order,detailsOrder}:Props) {
-
+function OrderCard({order,showDetailsOrder,selectedDeliveries}:Props) {
+  const [isSelected, setIsSelected] =useState(Boolean);
   const [isClientDatails,setIsClientDatails]= useState(false);
   const [client,setClient] = useState(Object);
+
   useEffect(()=>{
-    fetchUser();
-  },[])
+      if(selectedDeliveries)
+      checkIsDeliverySelected();
+  },[order]);
+
+  const checkIsDeliverySelected=async()=>{
+    setIsSelected(selectedDeliveries.some( (item: { orderId: number
+     })  => item.orderId === order.id ));
+  }
 
   const fetchUser=async()=>{
+   
     try{  
       const result = await userService.fetchUser(order.client);   
       setClient(result.data);
@@ -46,11 +54,12 @@ function OrderCard({order,detailsOrder}:Props) {
   }
 
   const showPhone=()=>{
+    fetchUser();
     setIsClientDatails(!isClientDatails);
   }
 
   return (
-    <View style={styles.container} >
+    <View style={[styles.container,{borderColor:isSelected?'#DA5C5C':'#fff' }]} >
       <View style={styles.header}>
          <Text style={styles.orderName}>Pedido# {order.id}</Text>
          <Text style={styles.orderPrice}>{formatPrice(order.total,'BRL',2)}</Text>
@@ -67,7 +76,7 @@ function OrderCard({order,detailsOrder}:Props) {
       <View style={styles.amount}>
         <Text style={styles.text}>itens:{order?.items.length}</Text>
       </View>
-      {detailsOrder===true ?
+      {showDetailsOrder===true ?
        <View>
          <View style={styles.line}></View>
          <View style={styles.address}>

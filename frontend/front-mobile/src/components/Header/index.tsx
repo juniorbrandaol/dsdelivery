@@ -7,9 +7,10 @@ import {AntDesign } from '@expo/vector-icons';
 /*TouchableWithoutFeedback => torna uma view clicavel*/
 type Props={
  goback:Boolean;
+ title: string
 }
 
-export default function Header({goback}:Props) {
+export default function Header({goback,title}:Props) {
     
   const navigation = useNavigation();
  
@@ -18,7 +19,10 @@ export default function Header({goback}:Props) {
   }
 
   return (
-     <TouchableWithoutFeedback onPress={handleOnPress}>
+     <TouchableWithoutFeedback 
+           style={[styles.button, title ? {height:130}: {height:90}]} 
+           onPress={handleOnPress}
+     >
         <View style={styles.container}>
           {goback===true?
             <View style={styles.grid}>
@@ -30,12 +34,13 @@ export default function Header({goback}:Props) {
           }
           <View style={styles.grid}>
             <Image source={require('../../assets/logo.png')}/>
-            <Text style={styles.text_logo}>DS Delivery</Text>
+            <Text style={styles.title_logo}>DS Delivery</Text>
           </View>
           <View style={styles.grid}>
        
           </View>  
         </View>
+        <Text style={styles.title_msg}>{title}</Text>
      </TouchableWithoutFeedback>    
   );
 }

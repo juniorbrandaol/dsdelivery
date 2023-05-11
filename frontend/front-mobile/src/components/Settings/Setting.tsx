@@ -21,25 +21,16 @@ export default function Setting() {
     
   },[update])
 
-  const fetchVehicle=async()=>{
-
-    const userId = await userService.authenticatedUser();
-    try{  
-       const result = await userService.fetchVehicleByuserId(userId.data.id);
-       setUpdate(true);
-    }
-    catch(error)  {
-      if(error===403){
-        Messages("Erro:"+error,'danger', 'top') ;
-      }else{
-        Messages("Erro ao buscar veículos. ",'danger', 'top') ;
-      }
-    }
-  }
-
   const logout= async()=>{
     await Storage.removeToken();
-    navigation.navigate('Home') 
+    navigation.navigate('Home' as never) 
+  }
+
+  const perfilHandleOnPress=()=>{
+   navigation.navigate('Profile' as never) 
+  }
+  const deliveryHandlerOnPress=()=>{
+   navigation.navigate('Delivery' as never) 
   }
 
  return (
@@ -51,7 +42,7 @@ export default function Setting() {
           <View style={styles.perfil}>
             <Image style={styles.imagePerfil} source={imgDefault}/>
             <Text style={styles.titlePerfil} > Edilson Brandao</Text>
-            <RectButton style={styles.editButton} onPress={()=>alert('1')}>
+            <RectButton style={styles.editButton} onPress={perfilHandleOnPress}>
                <MaterialIcons  name="edit" size={35} color="black" /> 
             </RectButton>
           </View>
@@ -79,7 +70,7 @@ export default function Setting() {
                <AntDesign name="right" size={24} color="#9E9E9E" /> 
             </RectButton>
             <View style={styles.line}></View>
-            <RectButton style={styles.buttonLink} >
+            <RectButton style={styles.buttonLink} onPress={deliveryHandlerOnPress} >
                <Text style={styles.titleLink}>Suas Corridas</Text>
                <AntDesign name="right" size={24} color="#9E9E9E" /> 
             </RectButton>

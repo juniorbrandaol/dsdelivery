@@ -65,7 +65,10 @@ function OrderList(){
    const data= [
       {value: 100, label: "TODOS"},
       {value: 0, label: "PENDING"},
-      {value: 1, label: "DELIVERED"},
+      {value: 1, label: "ACCEPTED"},
+      {value: 2, label: "REJECTED"},
+      {value: 3, label: "DISPATCHED"},
+      {value: 4, label: "DELIVERED"},
     ]
     return data
   }

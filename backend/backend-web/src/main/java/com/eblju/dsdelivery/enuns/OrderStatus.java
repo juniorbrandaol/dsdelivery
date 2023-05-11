@@ -2,8 +2,10 @@ package com.eblju.dsdelivery.enuns;
 
 public enum OrderStatus {
     PENDING(0)  ,
-    DELIVERED(1);
-
+    ACCEPTED(1),
+    REJECTED(2),
+    DISPATCHED(3),
+    DELIVERED(4);
     private int code;
 
     private OrderStatus(int code) {

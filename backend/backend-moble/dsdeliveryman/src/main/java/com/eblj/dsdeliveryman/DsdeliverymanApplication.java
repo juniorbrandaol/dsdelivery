@@ -12,5 +12,4 @@ public class DsdeliverymanApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DsdeliverymanApplication.class, args);
 	}
-
 }

@@ -11,7 +11,7 @@ import Messages from '../../utils/Messages';
 
 export default function Login() {
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,15 +19,15 @@ export default function Login() {
   const behavior = Platform.OS === 'ios' ? "position" : 'position'
  
   const data={
-      email:email,
-      password:password
+      email:'junior@gmail.com', //email,
+      password:1224//password
   }
   
   const handleOnPressSend=async()=>{
     
-    if(checkInputs()===false){
-      return
-    }
+  //  if(checkInputs()===false){
+  //    return
+  //  }
     try{  
         var auth= await userService.auth(data);
         Storage.setToken(auth.data.token); 
