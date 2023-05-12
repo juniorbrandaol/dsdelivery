@@ -1,12 +1,12 @@
-package com.eblj.email_integration;
+package com.eblj.dsmeta;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmailIntegrationApplication {
+public class DsmetaApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(EmailIntegrationApplication.class, args);
+		SpringApplication.run(DsmetaApplication.class, args);
 	}
 
 }

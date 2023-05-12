@@ -1,5 +1,6 @@
 package com.eblj.email_integration.services.impl;
 
+import com.eblj.email_integration.dto.CodeDTO;
 import com.eblj.email_integration.dto.EmailDTO;
 import com.eblj.email_integration.services.EmailService;
 import com.sendgrid.SendGrid;
@@ -15,6 +16,11 @@ public class MockEmailServiceImpl implements EmailService {
     public void sendEmail(EmailDTO dto) {
          LOG.info("Sending email to: " +dto.getTo());
          LOG.info("Email sent! ");
+    }
+
+    @Override
+    public CodeDTO sendEmailConfirmation(EmailDTO dto) {
+      return new CodeDTO(dto.getBody(),dto.getTo());
     }
 }
 
