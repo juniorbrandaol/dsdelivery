@@ -30,7 +30,7 @@ public class UserDTO  {
 	@Email(message = "Informe um email válido.")
 	@Column(unique = true)
 	private String email;
-	@Column(nullable = false, columnDefinition="boolean default FALSE")
+	@Column(nullable = false)
 	private boolean confirmedValidation;
 	private Set<RoleDTO> rolles = new HashSet<>();
 	public UserDTO() {super();}
@@ -51,6 +51,7 @@ public class UserDTO  {
 		cpf  = user.getCpf();
 		email = user.getEmail();
 		phone = user.getPhone();
+		confirmedValidation = user.getConfirmedValidation();
 		user.getRoles().forEach( role -> this.rolles.add(new RoleDTO(role)));
 	}
 

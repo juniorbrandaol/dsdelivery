@@ -88,7 +88,6 @@ class UserService {
             return Promise.resolve(response)
         }).catch((error) => {
             if (error.response) { 
-                console.log(error.response.data.status)
                 if(error.response.data.status===400){
                     return Promise.reject(error.response.data.message)  
                 }

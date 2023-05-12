@@ -24,7 +24,7 @@ public class User implements Serializable {
 	private String phone;
 	@Column(unique = true)
 	private String cpf;
-	@Column(nullable = false, columnDefinition="boolean default FALSE")
+	@Column(nullable = false)
 	private boolean confirmedValidation;
 	@ManyToMany(fetch = FetchType.EAGER)// garante que sempre que for carregar o usuario, vai carregar as roles dele obrigatoriamente
 	@JoinTable(name="tb_user_role",joinColumns = 
@@ -105,6 +105,11 @@ public class User implements Serializable {
 
 	public void setConfirmedValidation(boolean confirmedValidation) {
 		this.confirmedValidation = confirmedValidation;
+	}
+
+	@PrePersist
+	public void pretConfirmedValidation() {
+		this.confirmedValidation = true;
 	}
 
 	@Override

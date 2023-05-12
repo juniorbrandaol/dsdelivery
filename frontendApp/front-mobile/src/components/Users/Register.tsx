@@ -4,6 +4,7 @@ import {View,Text,Image,ScrollView, TextInput,
 import { RectButton} from 'react-native-gesture-handler'
 import styles from "./styles";
 import { useNavigation } from '@react-navigation/native';
+import Header from '../Header';
 //API
 import userService from '../../Services/apiServices/api';
 import ConfigEmail from '../../Config/AppConfig';
@@ -21,7 +22,7 @@ export default function Register() {
   const ref = useBlurOnFulfill({ value, cellCount: 4 })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({value, setValue})
 
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? -50 : 0
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? -100 : 0
   const behavior = Platform.OS === 'ios' ? "position" : 'position'
   const [modalVisible,setModalVisible]= useState(false)
   const [code,setCode] = useState('');
@@ -44,33 +45,8 @@ export default function Register() {
     if(checkInputs()===false){
      return
     }
-    const data={
-      firstName:_user.firstName,
-      lastName:_user.lastName,
-      cpf:_user.cpf,
-      phone:_user.phone,
-      email:_user.email,
-      password:_user.password,
-      rolles:[{id: 1}]
-    }
-
-    try{  
-        const result = await userService.saveUser(data);
-        Messages("Usuário salvo. ",'success', 'top') ;
-        setUserId(result.data.id)
-        sendEmailConfirmation(_user.email);
-        setModalVisible(true)
-    }
-    catch(error: any)  {
-      if(error.status===403){
-        Messages("Erro:"+error,'danger', 'top') ;
-      }else if(error.status===403){
-        Messages("Erro: "+error,'danger', 'top') ;
-      }else{
-        Messages("Usuário não pode ser salvo. ",'danger', 'top') ;
-      }
-    }
-  
+    sendEmailConfirmation(_user.email);
+    setModalVisible(true)
   }
 
   const checkInputs=()=>{
@@ -123,6 +99,7 @@ export default function Register() {
 }
 
 const checkCode=async()=>{
+
     if(value.length<4 || value==''){
       Messages("Informe o código.",'danger', 'top') ;
       return
@@ -137,11 +114,23 @@ const checkCode=async()=>{
       }
       return
     }
+
+    const data={
+      firstName:_user.firstName,
+      lastName:_user.lastName,
+      cpf:_user.cpf,
+      phone:_user.phone,
+      email:_user.email,
+      password:_user.password,
+      rolles:[{id: 1}]
+    }
+
     try{
-      await userService.switchUserValidation(userId); 
+      await userService.saveUser(data);
+      Messages("Usuário salvo. ",'success', 'top') ;
       navigation.navigate("Login")
     }catch(error){
-      Messages("Erro ao tentar enviar e-mail "+error,'danger', 'top') ;
+      Messages("Erro ao tentar cadastrar usuário "+error,'danger', 'top') ;
     }
     navigation.navigate('Login' as never) 
     setModalVisible(false)
@@ -235,7 +224,7 @@ const screenCheckCode=()=>{
  return (
   
     <View style={styles.container} >
-        <Image style={styles.imageLogin} source={require('../../assets/deliveryman.png')}/>
+        <Header goback={true} title=''/> 
         <Text style={styles.title}>Faça seu Cadastro</Text>
         <Text style={styles.subTitle}>Você receberá no email um código de verificação</Text>
         <KeyboardAvoidingView

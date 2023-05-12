@@ -30,7 +30,8 @@ import java.util.Arrays;
 public class SecurityConfig  {
 
     private static final String[] PUBLIC ={ "/users/auth","/products",
-            "/users/save","/h2-console/**","/emails/send/**","/users/validation/**"
+            "/users/save","/h2-console/**","/emails/send/**","/users/validation/**",
+            "/sms/send/**"
     };
     private static final String[] OPERATOR_OR_ADMIN ={"/users/userisauthenticated","/users/ms/**",
             "/orders/userId/**","/users/currentusername","/orders/pending","/vehicles/save,",

@@ -127,7 +127,7 @@ export default Message = (msg, type, position, confirmation) => {
       alignSelf: 'center',
       justifyContent:'center',
       alignItems: 'center', 
-      fontSize: 15,
+      fontSize: 18,
       //fontWeight: 'bold'
     },
     //estiliza o description

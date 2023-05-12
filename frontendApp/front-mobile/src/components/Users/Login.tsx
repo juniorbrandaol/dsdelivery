@@ -19,15 +19,15 @@ export default function Login() {
   const behavior = Platform.OS === 'ios' ? "position" : 'position'
  
   const data={
-      email:email,
-      password:password
+      email:"edilson_brandaojunior@hotmail.com",//email,
+      password:1224//password
   }
   
   const handleOnPressSend=async()=>{
     
-    if(checkInputs()===false){
-     return
-    }
+  //  if(checkInputs()===false){
+    // return
+   // }
     try{  
         var auth= await userService.auth(data);
         Storage.setToken(auth.data.token); 
@@ -45,7 +45,7 @@ export default function Login() {
       navigation.navigate('Orders') 
     }
     catch(error: any)  {
-      Messages("Você não tem um veículo cadastrado.",'danger', 'top') ;
+      Messages("Você não tem um veículo cadastrado.",'warning', 'top') ;
       navigation.navigate('RegisterVehicle')
     }
   }
@@ -70,7 +70,7 @@ export default function Login() {
   return (
     <>
       <View style={styles.container} >
-          <Image style={styles.image_login} source={require('../../assets/deliveryman.png')}/>
+         <Image style={styles.imageLogin} source={require('../../assets/deliveryman.png')}/>
           <Text  style={styles.title}>Faça seu Login</Text>
          
           <KeyboardAvoidingView
