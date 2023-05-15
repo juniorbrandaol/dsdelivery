@@ -25,6 +25,8 @@ export type OrdersList={
     name : string;
     price : number;
     description : number;
+    quantity: number;
+    total:number;
     imageUri:string;
     }
   ];

@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class SmsMsServiceImpl implements SmsMsService {
+
     @Autowired
     private SmsFeignClient smsFeignClient;
     @Override
-    public void sendSms(SmsDTO dto) { smsFeignClient.sendSms(dto);}
+    public void sendSms(SmsDTO dto) {
+            smsFeignClient.sendSms(dto);
+    }
+
 }

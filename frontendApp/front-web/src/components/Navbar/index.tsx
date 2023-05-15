@@ -4,9 +4,8 @@ import {ReactComponent as Logo} from '../../assets/imgs/logo.svg'
 import {ReactComponent as Login} from '../../assets/imgs/login.svg'
 import {ReactComponent as Logout} from '../../assets/imgs/logout.svg'
 import {ReactComponent as Orders} from '../../assets/imgs/orders.svg'
-import { Link } from 'react-router-dom';
-import { useNavigate   } from 'react-router-dom';
-import { toast } from "react-toastify";
+import { useNavigate,Link   } from 'react-router-dom';
+
 //API
 import userService from '../../Services/apiServices/Api';
 
@@ -41,7 +40,7 @@ function Navbar(){
         
         <div className='container_navbar'>
           <Logo/>
-          <Link to='/' className='logo-text'>DS Delivery</Link>
+          <Link to='/Orders' className='logo-text'>DS Delivery</Link>
         </div> 
               { 
               userName!==""?

@@ -115,9 +115,9 @@ function OrderDetails(){
                   orders?.items.map( (item) =>{
                     return(
                       <div className='order-details-product-card'>
-                        <div >
-                          <h3>1 {item.name}</h3>
-                          <h3>{item.description}</h3>
+                        <div>
+                          <div className='order-details-name-product'>{item.name}</div>
+                          <div className='order-details-description-product'>{item.description}</div>
                           <img 
                             className='order-details-image-product'
                             src={item.imageUri}
@@ -125,7 +125,9 @@ function OrderDetails(){
                           />
                         </div>
                         <div className='order-details-total'>
-                          {formatPrice(item.price,'BRL',2)}
+                          <span > {formatPrice(item.price,'BRL',2)}</span>
+                          <span >{item.quantity} </span>
+                          <span >{formatPrice(item.total,'BRL',2)} </span>
                         </div>
                       </div>
                     )

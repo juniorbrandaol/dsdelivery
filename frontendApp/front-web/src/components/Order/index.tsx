@@ -3,6 +3,7 @@ import Navbar from '../Navbar';
 import StepsHeader from './StepsHeader';
 import {useEffect, useState} from 'react';
 import { Product } from "../../models/Product";
+import { Items } from '../../models/Items';
 import { useLocation } from 'react-router-dom';
 import './styles.css';
 //API
@@ -20,34 +21,31 @@ function Order(){
   const route= useLocation()
 
   const [products,setProducts] = useState<Product[]>([]);
+  const [selectedItems,setSelectedItems] = useState<Items[]>([]);
   const [selectedProducts,setSelectedProducts] = useState<Product[]>([]);
   const [location, setLocation] = useState<LocationData>();
   const [company,setCompany] = useState('');
   const [address,setAddress]= useState('');
   const [getQuantity,setQuantity]= useState(1);
-  
- 
-  // const userId=route?.state?.userId;
-
-  const totalPrice=selectedProducts.reduce((sum,item)=>{
-        return (sum+item.price);
-  },0);
 
   useEffect(()=>{
     fetchCompanyId(1);
     fetchProducts();
+
   },[setLocation,address])
+
 
   const handleSelectProduct = (product: Product) => {
    
     const isAlreadySelected = checkIsSelected(selectedProducts,product);
-    
+ 
     if (isAlreadySelected) {
       const selected = selectedProducts.filter(item => item.id !== product.id);
       setSelectedProducts(selected);
     } else {
       setSelectedProducts(previous => [...previous, product]);
     }
+
   }
  
   const handleSubmit = async () => {
@@ -64,16 +62,16 @@ function Order(){
       toast.warning("Usuário não logado ou não autorizado");  
       return
     }
-
+  
     const productsIds = selectedProducts.map(({ id }) => ({ id }));
     const payload = {
       ...location!,
       products: productsIds,
-      items:productsIds,
+      items:selectedItems,
       client:userId
     }
 
-    if(productsIds.length===0){
+    if(selectedItems.length===0){
       toast.warning("Nenhum produto selecionado.");
       return
     }
@@ -115,9 +113,35 @@ function Order(){
     })
   }
 
-  const quantity=(qtd:number)=>{
-    setQuantity(qtd);
-    return qtd;
+  const totalPrice=selectedItems.reduce((sum,item)=>{
+    return (sum+(item.price*item.quantity));
+  },0);
+
+  const totalItems=selectedItems.reduce((sum,item)=>{
+    return (sum+(item.quantity));
+  },0);
+
+  const _items=(product:Product,qtd:number)=>{
+    if(qtd===0) return
+    const items={id:0,quantity:0,price:0}
+
+    const isAlreadySelected = selectedItems.some(item => item.id === product.id );
+    if (isAlreadySelected) {
+       selectedItems.filter((item,index)=>{
+        if(item.id === product.id){
+          selectedItems.splice(selectedItems.indexOf(item), 1);
+        }
+      })
+      items.id=product.id;
+      items.quantity= qtd;
+      items.price = product.price
+      setSelectedItems(previous=>[...previous,items]);
+    } else {
+      items.id=product.id;
+      items.quantity= qtd;
+      items.price = product.price
+      setSelectedItems(previous=>[...previous,items]);
+    }
   }
  
   return (
@@ -129,12 +153,12 @@ function Order(){
                 products={products}
                 onSelectProduct={handleSelectProduct}
                 selectedProduct={selectedProducts}
-                qtd={quantity}
+                items={_items}
 
             />
             <Location onchangeLocation={location=>setLocation(location)}/>
             <OrderSummary
-              items={selectedProducts.length}
+              items={totalItems}
               quantity={getQuantity}
               totalPrice={totalPrice}
               address={address}

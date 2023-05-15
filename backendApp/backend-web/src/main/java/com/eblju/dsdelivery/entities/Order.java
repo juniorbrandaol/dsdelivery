@@ -117,8 +117,8 @@ public class Order {
 
     public Double getTotal(){
         double sum = 0.0;
-        for (Product p:products){
-            sum+=p.getPrice();
+        for(OrderItem i: items){
+            sum+= i.getPrice()*i.getQuantity();
         }
         return sum;
     }

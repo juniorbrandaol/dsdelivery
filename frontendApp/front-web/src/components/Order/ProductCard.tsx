@@ -1,5 +1,5 @@
 
-import React, {useState } from 'react'
+import React from 'react'
 import './styles.css';
 import { Product } from '../../models/Product';
 import {formatPrice} from '../../utils/Formatters'
@@ -10,15 +10,14 @@ type Props={
   product: Product;
   onSelectProduct:(product:Product) =>void;
   isSelected: boolean;
-  qtd:(qtd:number)=>number;
+  items:(Product:Product,qtd:number,)=>Object;
 }
 
-function ProductCard({product,onSelectProduct,isSelected,qtd}:Props){
+function ProductCard({product,onSelectProduct,isSelected,items}:Props){
 
      //RETURNS THE QUANTITY OF ITEMS REPORTED FOR THE ITEM.
     function getQuantity(quantity:number) {
-      qtd(quantity)
-      return quantity;
+     return items(product,quantity)
     };
     
    return (
@@ -49,7 +48,7 @@ function ProductCard({product,onSelectProduct,isSelected,qtd}:Props){
                 <ButtonCounter
                   OnClick={getQuantity}
                   maxInc={3}
-                  initInc={1}
+                  initInc={0}
                 />       
             </div>
         </div>

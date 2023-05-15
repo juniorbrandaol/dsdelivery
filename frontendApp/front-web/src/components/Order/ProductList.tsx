@@ -7,10 +7,10 @@ type Props={
    products:Product[];
    onSelectProduct:(product:Product) =>void;
    selectedProduct: Product[];
-   qtd:(qtd:number)=>number;
+   items:(product:Product,qtd:number)=>any;
 }
 
-function ProductList({products,selectedProduct,onSelectProduct,qtd}:Props){
+function ProductList({products,selectedProduct,onSelectProduct,items}:Props){
   
   return (
    <div className='orders-list-container'>
@@ -23,7 +23,7 @@ function ProductList({products,selectedProduct,onSelectProduct,qtd}:Props){
               key={item.id}
               onSelectProduct={onSelectProduct}
               isSelected={ checkIsSelected (selectedProduct,item)}
-              qtd={qtd}
+              items={items}
             />  
          )
        })}

@@ -10,9 +10,12 @@ import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class SmsServiceImpl implements SmsService {
@@ -26,9 +29,10 @@ public class SmsServiceImpl implements SmsService {
     @Value("${twilio.phone.from}")
     private String twilioPhoneFrom;
 
-    @Value("${twilio.phone.to}")
-    private String twilioPhoneTo;
+   // @Value("${twilio.phone.to}")
+   // private String twilioPhoneTo;
 
+    @Override
     public void sendSms(SmsDTO dto) {
 
         String token = GenerateCod.generateToken(4);
@@ -40,8 +44,11 @@ public class SmsServiceImpl implements SmsService {
         Twilio.init(twilioSid, twilioKey);
         PhoneNumber to = new PhoneNumber(dto.getTo());
         PhoneNumber from = new PhoneNumber(twilioPhoneFrom);
-        Message message = Message.creator(to, from, msg).create();
+        Message message = Message.creator(to, from, msg).setMediaUrl(
+                Arrays.asList(URI.create("https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_bacon.jpg"))).create();
+
         System.out.println("Mensagem enviada :"+message.getSid());
 
     }
+
 }

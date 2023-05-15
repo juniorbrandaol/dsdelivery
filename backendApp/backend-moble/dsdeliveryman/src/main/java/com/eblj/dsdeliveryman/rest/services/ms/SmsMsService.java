@@ -4,4 +4,5 @@ import com.eblj.dsdeliveryman.dto.ms.SmsDTO;
 
 public interface SmsMsService {
     void sendSms(SmsDTO dto);
+
 }

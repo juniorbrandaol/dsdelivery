@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface EmailFeignClient {
      @PostMapping()
      @ResponseStatus(HttpStatus.OK)
-     public void sendEmail( @RequestBody EmailDTO dto);
+     void sendEmail( @RequestBody EmailDTO dto);
 
-     @PostMapping("/confirmation")
+     @PostMapping("/notification")
      @ResponseStatus(HttpStatus.OK)
-     public CodeDTO sendEmailConfirmation(@RequestBody EmailDTO dto);
+     CodeDTO sendEmailConfirmation(@RequestBody EmailDTO dto);
 }

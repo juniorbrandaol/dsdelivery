@@ -1,9 +1,9 @@
 
 export type Items={
-  productId : number;
+  id : number;
   quantity:number
-  name : string;
+  name? : string;
   price : number;
-  description : number;
-  imageUrl:string;
+  description? : number;
+  imageUrl?:string;
 }

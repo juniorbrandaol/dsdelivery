@@ -31,12 +31,12 @@ public class SecurityConfig  {
 
     private static final String[] PUBLIC ={ "/users/auth","/products",
             "/users/save","/h2-console/**","/emails/send/**","/users/validation/**",
-            "/sms/send/**"
+            "/sms/send/**","/sms"
     };
     private static final String[] OPERATOR_OR_ADMIN ={"/users/userisauthenticated","/users/ms/**",
             "/orders/userId/**","/users/currentusername","/orders/pending","/vehicles/save,",
             "/vehicles/userId/**","/orders/orderId/**","/orders/statusId","/order/**",
-            "/orders","/orders/getAll/userId","/orders/userId/**","/orders/ms/**"
+            "/orders","/orders/getAll/userId","/orders/userId/**","/orders/ms/**",
     };
     private static final String[] ADMIN ={"/users/**","/orders/**"};
     private static final String[] SWAGGER = {
