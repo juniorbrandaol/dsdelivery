@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {View,Text,Image,ScrollView, TextInput,
+import {View,Text,ScrollView, TextInput,
         KeyboardAvoidingView,Platform,Modal} from 'react-native'
 import { RectButton} from 'react-native-gesture-handler'
 import styles from "./styles";
@@ -13,9 +13,11 @@ import { UserModel } from '../../models/UserModel';
 import {CodeField,Cursor,useClearByFocusCell,useBlurOnFulfill,
 } from 'react-native-confirmation-code-field';
 import {Fontisto} from '@expo/vector-icons';
-
+import { TextInputMask } from 'react-native-masked-text';
+import { onlyNumber } from '../../utils/Formatters';
 
 export default function Register() {
+
 
   //FECHA O TECLADO QUANDO O ULTIMO CÓDIGO FOR INFORMADO
   const [value, setValue] = useState("")
@@ -41,11 +43,8 @@ export default function Register() {
   });
 
   const handleOnPressSend=async()=>{
-
-    if(checkInputs()===false){
-     return
-    }
-    sendEmailConfirmation(_user.email);
+    if(checkInputs()===false)return
+  //  sendEmailConfirmation(_user.email);
     setModalVisible(true)
   }
 
@@ -98,8 +97,21 @@ export default function Register() {
   }
 }
 
-const checkCode=async()=>{
+const sendSmsConfirmation=async(to:any)=>{
 
+  const payload={to:"+"+onlyNumber(to)}
+  try{
+     const result = await userService.sendSmsConfirmation(payload); 
+     setCode(result.data.code);
+     return true;
+  }catch(error){
+    Messages("Erro ao tentar enviar sms "+error,'danger', 'top') ;
+    return false;
+  }
+}
+
+const checkCode=async()=>{
+/*
     if(value.length<4 || value==''){
       Messages("Informe o código.",'danger', 'top') ;
       return
@@ -114,12 +126,12 @@ const checkCode=async()=>{
       }
       return
     }
-
+*/
     const data={
       firstName:_user.firstName,
       lastName:_user.lastName,
-      cpf:_user.cpf,
-      phone:_user.phone,
+      cpf:onlyNumber(_user.cpf),
+      phone:"+"+onlyNumber(_user.phone),
       email:_user.email,
       password:_user.password,
       rolles:[{id: 1}]
@@ -247,15 +259,26 @@ const screenCheckCode=()=>{
                 onChangeText={(value) => set_User({..._user,lastName:value})}
                 keyboardType={'default'}
               />
-               <TextInput style={styles.text_Input}
+              <TextInputMask
+                style={styles.text_Input}
+                type={'cpf'}
                 placeholder="Cpf"
+                value={_user.cpf}
                 onChangeText={(value) => set_User({..._user,cpf:value})}
                 keyboardType={'numeric'}
+                maxLength={19}
               />
-              <TextInput style={styles.text_Input}
+              <TextInputMask
+                style={styles.text_Input}
+                type={'cel-phone'}
                 placeholder="Telefone"
+                options={{
+                  maskType: 'BRL',
+                  withDDD: true,
+                  dddMask: '+55(83)'
+                }}
+                value={_user.phone}
                 onChangeText={(value) => set_User({..._user,phone:value})}
-                keyboardType={'numeric'}
               />
               <TextInput style={styles.text_Input}
                 placeholder="Email"

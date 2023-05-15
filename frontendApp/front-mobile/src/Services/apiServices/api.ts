@@ -438,11 +438,40 @@ class UserService {
         })
     }
 
-    //ENVIA EMAIL
+    //ENVIA EMAIL COM CÓDIGO DE VERIFICAÇÃO DE CADASTRO
     async sendEmailConfirmation(payLoad:object) {
    
         return axios({
             url: BASE_URL + "/emails/send/confirmation",
+            method: "POST",
+            data: payLoad,
+           
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+       
+            if (error.response) { 
+               if(error.response.status==400){
+                return Promise.reject(error.response.data.errors[0].message)  
+               }else if(error.response.status==403){
+                return Promise.reject(error.response.data.error)
+               }else{
+                return Promise.reject(error.response)
+               }
+            } else if (error.request) { 
+                return Promise.reject(error.request)
+            } else {
+                // anything else 
+                return Promise.reject(error)
+            } 
+        })
+    }
+
+    //ENVIA SMS COM CÓDIGO DE VERIFICAÇÃO DE CADASTRO
+    async sendSmsConfirmation(payLoad:object) {
+   
+        return axios({
+            url: BASE_URL + "/sms/send",
             method: "POST",
             data: payLoad,
            

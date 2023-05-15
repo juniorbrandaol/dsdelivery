@@ -127,10 +127,11 @@ function Order(){
 
     const isAlreadySelected = selectedItems.some(item => item.id === product.id );
     if (isAlreadySelected) {
-       selectedItems.filter((item,index)=>{
+       selectedItems.filter((item)=>{
         if(item.id === product.id){
           selectedItems.splice(selectedItems.indexOf(item), 1);
         }
+        return true;
       })
       items.id=product.id;
       items.quantity= qtd;
@@ -154,7 +155,6 @@ function Order(){
                 onSelectProduct={handleSelectProduct}
                 selectedProduct={selectedProducts}
                 items={_items}
-
             />
             <Location onchangeLocation={location=>setLocation(location)}/>
             <OrderSummary

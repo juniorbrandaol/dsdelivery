@@ -8,6 +8,7 @@ import userService from '../../Services/apiServices/api';
 import Messages from '../../utils/Messages';
 import imgDefault from '../../../src/assets/default.jpg'
 import {AntDesign } from '@expo/vector-icons'; 
+import { phoneMask,cpfMask } from '../../utils/Formatters';
 
 export default function Profile() {
 
@@ -81,14 +82,14 @@ export default function Profile() {
               <View style={styles.dataProfile} >
                  <Text style={styles.lineTitle}>Cpf</Text>
                  <Text style={[styles.lineTitle,{paddingTop:5,color:'black'}]}>
-                    {user?.cpf}
+                    {cpfMask(user?.cpf)}
                  </Text>
               </View>
               <View style={styles.line}></View>
               <View style={styles.dataProfile} >
                  <Text style={styles.lineTitle}>Telefone</Text>
                  <Text style={[styles.lineTitle,{paddingTop:5,color:'black'}]}>
-                     {user?.phone}
+                     {phoneMask(user?.phone)}
                  </Text>
               </View>
               <View style={styles.line}></View>
