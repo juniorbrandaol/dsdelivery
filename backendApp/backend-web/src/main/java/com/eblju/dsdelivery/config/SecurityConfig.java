@@ -31,11 +31,11 @@ public class SecurityConfig  {
 
     private static final String[] PUBLIC ={
             "/users/auth","/products","/orders/pending","/users/userisauthenticated",
-            "/users/save","/h2-console/**","/companies/id","/orders/**"
+            "/users/save","/h2-console/**","/companies/id","/orders/**", "/sms/send/**","/sms"
     };
     private static final String[] OPERATOR_OR_ADMIN ={
             "/companies/**","/orders/userId/**","/users/currentusername","/orders/orderId/**",
-            "/orders/statusId/**","/users/**","/orders/**"
+            "/orders/statusId/**","/users/**","/orders/**","/users/update/**"
     };
     private static final String[]  ADMIN ={"/users/**","/orders/userId/**",
             "/orders/statusId/**"};

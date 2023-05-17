@@ -33,7 +33,7 @@ public class SmsServiceImpl implements SmsService {
    // private String twilioPhoneTo;
 
     @Override
-    public void sendSms(SmsDTO dto) {
+    public SmsDTO sendSms(SmsDTO dto) {
 
         String token = GenerateCod.generateToken(4);
         LocalDateTime today = LocalDateTime.now();
@@ -42,13 +42,14 @@ public class SmsServiceImpl implements SmsService {
         String msg = "O seu código de verificação para DSDelivery é: "+token
                 + "\n"+today.format(format);
         Twilio.init(twilioSid, twilioKey);
+        dto.setToken(token);
         PhoneNumber to = new PhoneNumber(dto.getTo());
         PhoneNumber from = new PhoneNumber(twilioPhoneFrom);
         Message message = Message.creator(to, from, msg).setMediaUrl(
                 Arrays.asList(URI.create("https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_bacon.jpg"))).create();
 
         System.out.println("Mensagem enviada :"+message.getSid());
-
+        return dto;
     }
 
 }

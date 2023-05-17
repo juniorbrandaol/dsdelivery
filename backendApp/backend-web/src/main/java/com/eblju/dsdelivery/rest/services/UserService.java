@@ -15,4 +15,7 @@ public interface UserService {
 	UserDetails authenticate(User user);
 	List<UserDTO> findAll();
 	UserDTO authenticatedUser(String email);
+	void updateEmail(Long id,UserDTO email);
+	void updatePhone(Long id,UserDTO phone);
+	void updatePassword(Long id,UserInsertDTO password);
 }

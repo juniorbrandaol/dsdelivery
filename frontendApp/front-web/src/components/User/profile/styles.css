@@ -52,7 +52,6 @@
   margin-top: 40px;
  
 }
-
 .make-userCreate:focus {
   outline: none;
 }
@@ -69,4 +68,54 @@
   height:35px;
   font-family: sans-serif;
   text-align: center;
+  background-color: #FFF;
+}
+.edit-user{
+  flex-direction: row;
+  display: flex;
+}
+.edit-user button{
+  height: 40px;
+  width: 40px;
+  margin-top: 3px;
+  margin-left: 10px;
+  background-color:#DA5C5C;
+  border-color: #DA5C5C;
+  border: 0;
+  cursor: pointer;
+}
+.edit-user button:focus {
+  outline: none;
+}
+
+.edit-user button:hover {
+  transform: scale(1.01);
+}
+.opt-input{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  padding-top: 20px;
+}
+.newCode{
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+}
+.newCode  h4{
+  font-size: 14px;
+}
+.newCode button {
+  border: 0;
+  cursor: pointer;
+  background-color: #DA5C5C;
+}
+.newCode button h4{
+  font-size: 14px;
+  color: #301A4B;
+}
+.newCode button:hover h4 {
+  color: aqua;
+  transform: scale(1.01);
 }

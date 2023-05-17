@@ -3,12 +3,12 @@
 import { BrowserRouter,Route,Routes } from "react-router-dom";
 import Home from "../Home";
 import Order from "../Order";
-import Navbar from "../Navbar";
 import OrderList from "../Order/OrderList";
 import OrderDetails from "../Order/OrderDetails";
 import Login from "../User/login";
 import CreateUser from "../User/create";
-
+import Profile from "../User/profile";
+import Edit from "../User/profile/Edit"
 
 function _Routes(){
   return(
@@ -21,6 +21,8 @@ function _Routes(){
          <Route path="/login" element={<Login />}/>
          <Route path="/createUser" element={<CreateUser />}/>
          <Route path="/orderDetails" element={<OrderDetails />}/>
+         <Route path="/profile" element={<Profile/>}/>
+         <Route path="/edit" element={<Edit/>}/>
        </Routes>
        
     </BrowserRouter>

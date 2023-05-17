@@ -19,4 +19,6 @@ public class UserMsController {
     public UserDto findById(@Parameter(description = "id of user to be searched") @PathVariable Long userId ){
         return userMsService.findById(userId) ;
     }
+
+
 }

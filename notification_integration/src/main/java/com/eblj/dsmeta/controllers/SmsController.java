@@ -16,8 +16,8 @@ public class SmsController {
     private SmsServiceImpl smsService;
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void sendSms(@RequestBody SmsDTO dto){
-      smsService.sendSms(dto);
+    public SmsDTO sendSms(@RequestBody SmsDTO dto){
+      return smsService.sendSms(dto);
     }
 
 }

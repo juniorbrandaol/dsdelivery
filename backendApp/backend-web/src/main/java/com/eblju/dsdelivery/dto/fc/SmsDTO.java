@@ -1,8 +1,11 @@
-package com.eblj.dsmeta.dto;
+package com.eblju.dsdelivery.dto.fc;
+
 public class SmsDTO {
-    private String  to;
+    private String to;
     private String token;
-    public SmsDTO(){}
+
+    public SmsDTO() {
+    }
 
     public String getToken() {
         return token;
@@ -19,5 +22,4 @@ public class SmsDTO {
     public void setTo(String to) {
         this.to = to;
     }
-
 }

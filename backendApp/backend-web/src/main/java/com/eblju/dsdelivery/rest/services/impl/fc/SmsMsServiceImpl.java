@@ -1,10 +1,11 @@
-package com.eblj.dsdeliveryman.rest.services.impl.ms;
+package com.eblju.dsdelivery.rest.services.impl.fc;
 
-import com.eblj.dsdeliveryman.dto.ms.SmsDTO;
-import com.eblj.dsdeliveryman.feignClient.SmsFeignClient;
-import com.eblj.dsdeliveryman.rest.services.ms.SmsMsService;
+import com.eblju.dsdelivery.dto.fc.SmsDTO;
+import com.eblju.dsdelivery.feignClient.SmsFeignClient;
+import com.eblju.dsdelivery.rest.services.fc.SmsMsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @Service
 public class SmsMsServiceImpl implements SmsMsService {
 

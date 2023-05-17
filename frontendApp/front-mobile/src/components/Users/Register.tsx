@@ -18,8 +18,6 @@ import { onlyNumber } from '../../utils/Formatters';
 
 export default function Register() {
 
-
-  //FECHA O TECLADO QUANDO O ULTIMO CÓDIGO FOR INFORMADO
   const [value, setValue] = useState("")
   const ref = useBlurOnFulfill({ value, cellCount: 4 })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({value, setValue})
@@ -28,7 +26,6 @@ export default function Register() {
   const behavior = Platform.OS === 'ios' ? "position" : 'position'
   const [modalVisible,setModalVisible]= useState(false)
   const [code,setCode] = useState('');
-  const [userId,setUserId] = useState(0);
   const [count,setCount] = useState(1);
 
   const navigation = useNavigation<any>()
@@ -44,7 +41,8 @@ export default function Register() {
 
   const handleOnPressSend=async()=>{
     if(checkInputs()===false)return
-  //  sendEmailConfirmation(_user.email);
+    sendEmailConfirmation(_user.email);
+    //sendSmsConfirmation(_user.phone);
     setModalVisible(true)
   }
 
@@ -102,7 +100,8 @@ const sendSmsConfirmation=async(to:any)=>{
   const payload={to:"+"+onlyNumber(to)}
   try{
      const result = await userService.sendSmsConfirmation(payload); 
-     setCode(result.data.code);
+     setCode(result.data.token);
+     console.log(result.data.token)
      return true;
   }catch(error){
     Messages("Erro ao tentar enviar sms "+error,'danger', 'top') ;
@@ -111,7 +110,7 @@ const sendSmsConfirmation=async(to:any)=>{
 }
 
 const checkCode=async()=>{
-/*
+
     if(value.length<4 || value==''){
       Messages("Informe o código.",'danger', 'top') ;
       return
@@ -126,7 +125,7 @@ const checkCode=async()=>{
       }
       return
     }
-*/
+
     const data={
       firstName:_user.firstName,
       lastName:_user.lastName,

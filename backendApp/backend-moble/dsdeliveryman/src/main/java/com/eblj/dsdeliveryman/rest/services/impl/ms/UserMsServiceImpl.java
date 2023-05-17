@@ -1,7 +1,7 @@
 package com.eblj.dsdeliveryman.rest.services.impl.ms;
 
 import com.eblj.dsdeliveryman.dto.ms.UserDto;
-import com.eblj.dsdeliveryman.feignEntities.UserFeignClient;
+import com.eblj.dsdeliveryman.feignClient.UserFeignClient;
 import com.eblj.dsdeliveryman.rest.services.exceptions.ResourceNotFoundException;
 import com.eblj.dsdeliveryman.rest.services.ms.UserMsService;
 import feign.FeignException;

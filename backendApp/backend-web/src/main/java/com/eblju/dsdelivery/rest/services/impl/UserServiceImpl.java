@@ -10,6 +10,7 @@ import com.eblju.dsdelivery.entities.User;
 import com.eblju.dsdelivery.repositories.RoleRepository;
 import com.eblju.dsdelivery.repositories.UserRepository;
 import com.eblju.dsdelivery.rest.services.UserService;
+import com.eblju.dsdelivery.rest.services.exceptions.ResourceNotFoundException;
 import com.eblju.dsdelivery.rest.services.exceptions.SenhaInvalidaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -97,10 +98,43 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDTO authenticatedUser(String email) {
-
 		User user =  repository.findByEmail(email)
 			.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
 		return new UserDTO(user);
+	}
+
+	@Transactional()
+	@Override
+	public void updateEmail(Long id, UserDTO dto) {
+		try {
+			User user = repository.findById(id).get();
+			repository.updateUserEmailById(id, dto.getEmail());
+		}catch (NoSuchElementException e){
+			throw new ResourceNotFoundException("Usuário não encontrado");
+		}
+	}
+
+	@Transactional()
+	@Override
+	public void updatePhone(Long id, UserDTO dto) {
+		try {
+			User user = repository.findById(id).get();
+			repository.updateUserPhoneById(id, dto.getPhone());
+		}catch (NoSuchElementException e){
+			throw new ResourceNotFoundException("Usuário não encontrado");
+		}
+	}
+
+	@Transactional()
+	@Override
+	public void updatePassword(Long id, UserInsertDTO dto) {
+		try {
+			User user = repository.findById(id).get();
+			String passwordCripto = encoder.encode(dto.getPassword());
+			repository.updateUserPasswordById(id, passwordCripto);
+		}catch (NoSuchElementException e){
+			throw new ResourceNotFoundException("Usuário não encontrado");
+		}
 	}
 
 

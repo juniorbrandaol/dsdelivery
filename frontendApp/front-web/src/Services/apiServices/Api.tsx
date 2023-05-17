@@ -8,27 +8,51 @@ class UserService {
 
     /******************* USER **********************/
 
-    //SALVA UM PEDIDO
+    //SALVA UM USER
    async saveUser(payLoad:object) {
 
-    return axios({
-        url: BASE_URL + "/users/save",
-        method: "POST",
-        data: payLoad,
-    }).then((response) => {
-        return Promise.resolve(response)
-    }).catch((error) => {
-    
-        if (error.response) { 
-            return Promise.reject(error.response)
-        } else if (error.request) { 
-            return Promise.reject(error)
-        } else { 
-            // anything else 
-            return Promise.reject(error)
-        } 
-    })
-}
+        return axios({
+            url: BASE_URL + "/users/save",
+            method: "POST",
+            data: payLoad,
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+        
+            if (error.response) { 
+                return Promise.reject(error.response)
+            } else if (error.request) { 
+                return Promise.reject(error)
+            } else { 
+                // anything else 
+                return Promise.reject(error)
+            } 
+        })
+   }
+
+    //ATUALIZA UM FIELD DE USER
+    async updateUserField(payLoad:object,userId:number,fieldName:string) {
+
+        return axios({
+            url: BASE_URL + "/users/update/"+fieldName+"/"+userId,
+            method: "PUT",
+            data: payLoad,
+            headers: {
+               "Authorization": "Bearer " +await storage.getToken(),
+            }
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+            if (error.response) { 
+                return Promise.reject(error.response)
+            } else if (error.request) { 
+                return Promise.reject(error)
+            } else { 
+                // anything else 
+                return Promise.reject(error)
+            } 
+        })
+   }
 
     /******************** Auth *********************/
 
@@ -296,7 +320,6 @@ class UserService {
         } 
     })
 }
-
 
 
 }

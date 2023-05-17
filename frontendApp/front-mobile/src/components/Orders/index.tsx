@@ -6,7 +6,7 @@ import { useEffect, useState} from 'react';
 import { OrderModel } from '../../models/OrderModel';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import { useNavigation,useIsFocused } from '@react-navigation/native';
-import { Status } from '../Enuns/Status';
+
 //API
 import userService from "../../Services/apiServices/api";
 import Messages from '../../utils/Messages';

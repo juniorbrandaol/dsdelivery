@@ -1,15 +1,23 @@
 package com.eblj.dsdeliveryman.dto.ms;
 
 public class SmsDTO {
+        private String  to;
+        private String token;
+        public SmsDTO(){}
 
-    private String  to;
-    public SmsDTO(){}
+        public String getToken() {
+            return token;
+        }
 
-    public String getTo() {
-        return to;
-    }
+        public void setToken(String token) {
+            this.token = token;
+        }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+        public String getTo() {
+            return to;
+        }
+
+        public void setTo(String to) {
+            this.to = to;
+        }
 }

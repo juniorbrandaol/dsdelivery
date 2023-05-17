@@ -6,6 +6,7 @@ import com.eblju.dsdelivery.dto.UserDTO;
 import com.eblju.dsdelivery.dto.UserInsertDTO;
 import com.eblju.dsdelivery.entities.User;
 import com.eblju.dsdelivery.rest.services.UserService;
+import com.eblju.dsdelivery.rest.services.impl.UserServiceImpl;
 import com.eblju.dsdelivery.rest.services.security.jwt.JwtService;
 import io.jsonwebtoken.MalformedJwtException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +27,7 @@ import java.util.List;
 public class UserController  {
 
 	@Autowired
-	private UserService service;
+	private UserServiceImpl service;
 	@Autowired
 	private JwtService jwtService;
 	@Operation(summary = "Get all Users")
@@ -81,4 +82,30 @@ public class UserController  {
 			return authentication.isAuthenticated();
 	}
 
+	@Operation(summary = "Update email user by id ")
+	@PutMapping("/update/email/{idUser}")
+	public void updateUserEmail(
+			@Parameter(description = "id of user to be searched") @PathVariable Long idUser,
+			@Parameter(description = "email to be exchanged")  @RequestBody UserDTO email)
+	         {
+		service.updateEmail(idUser,email);
+	}
+
+	@Operation(summary = "Update phone user by id ")
+	@PutMapping("/update/phone/{idUser}")
+	public void updateUserPhone(
+			@Parameter(description = "id of user to be searched") @PathVariable Long idUser,
+			@Parameter(description = "phone to be exchanged")  @RequestBody UserDTO phone)
+	{
+		service.updatePhone(idUser,phone);
+	}
+
+	@Operation(summary = "Update password user by id ")
+	@PutMapping("/update/password/{idUser}")
+	public void updateUserPassword(
+			@Parameter(description = "id of user to be searched") @PathVariable Long idUser,
+			@Parameter(description = "password to be exchanged")  @RequestBody UserInsertDTO password)
+	{
+		service.updatePassword(idUser,password);
+	}
 }

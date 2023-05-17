@@ -410,11 +410,11 @@
 }
 .order-details-name-product{
   font-weight: bold;
-  width: '100%';
+  width: 100%;
   height: 30px;
 }
 .order-details-description-product{
-  width: '100%';
+  width: 100%;
   height: 85px;
 }
 .order-details-product h3{

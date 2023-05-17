@@ -1,67 +1,85 @@
 
 .main-navbar{
+  display: flex;
   height: 70px;
   padding-left: 45px;
   padding-right: 45px;
-  display: flex;
   align-items: center;
   background: #DA5C5C;
-  flex-direction: row;
   justify-content: space-between;
 }
 .container_navbar{
   display: flex;
+  width: 100em;
   align-items: center;
-  width: 1000px;
-}
-.content_navbar{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #DA5C5C;
   color: #FFFFFF;
   border: 0;
+  
 }
 
 .logo-text{
   font-weight: bold;
   font-size: 24px;
   line-height: 33px;
+  text-align:start;
   letter-spacing: -0.015em;
   color: #FFFFFF;
-  margin-left: 1px;
 }
 
-.make-login-image{
-  align-self: center;
-  height: 30px;
-  width: 70px;
-  background:#DA5C5C;
-  border-radius: 10px;
-  border: 0;
+/********* MENU DROPDOWN *******/
+.Menu{
+  right: 6em ;
+  position: absolute;
+  top: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-item{
+  position: absolute;
+  top: 0;
+  width: 5.5em;
+  background-color: #301A4B;
+  box-shadow: 1px 2px 2px #301A4B;
+  padding: 0.2em;
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  line-height: 33px;
+  text-align: center;
+  letter-spacing: -0.015em;
+  
+  color: #EDFFEC;
   cursor: pointer;
+  transition: 1s;
 }
-.make-login-image:focus {
-  outline: none;
+.m-item:hover{
+  border: 1px solid rgba(0, 0, 0, 0.25);
 }
-.make-login-image:hover {
+.m-logo{
+  z-index: 1;
+}
+.open-1{
+  top: 1.90em;
   background-color: #ec6f6f;
-  transform: scale(1.01);
 }
-.make-orders-image{
-  align-self: center;
-  height: 60px;
-  width: 70px;
-  background:#DA5C5C;
-  border-radius: 10px;
-  border: 0;
-  cursor: pointer;
-}
-.make-orders-image:focus {
-  outline: none;
-}
-.make-orders-image:hover {
+.open-2{
+  top: 3.8em;
   background-color: #ec6f6f;
-  transform: scale(1.01);
+}
+.open-3{
+  top: 5.7em;
+  background-color: #ec6f6f;
+}
+.open-4{
+  top: 7.6em;
+  background-color: #ec6f6f;
+}
+.open-5{
+  top: 9.5em;
+  background-color: #ec6f6f;
 }

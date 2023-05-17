@@ -31,7 +31,6 @@ function Order(){
   useEffect(()=>{
     fetchCompanyId(1);
     fetchProducts();
-
   },[setLocation,address])
 
 

@@ -1,7 +1,7 @@
 package com.eblj.dsdeliveryman.rest.services.impl.ms;
 
 import com.eblj.dsdeliveryman.dto.ms.OrderDTO;
-import com.eblj.dsdeliveryman.feignEntities.OrderFeignClient;
+import com.eblj.dsdeliveryman.feignClient.OrderFeignClient;
 import com.eblj.dsdeliveryman.rest.services.exceptions.ResourceNotFoundException;
 import com.eblj.dsdeliveryman.rest.services.ms.OrderMsService;
 import feign.FeignException;

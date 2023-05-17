@@ -1,7 +1,7 @@
-package com.eblj.dsdeliveryman.controllers.ms;
+package com.eblju.dsdelivery.controllers.fc;
 
-import com.eblj.dsdeliveryman.dto.ms.SmsDTO;
-import com.eblj.dsdeliveryman.rest.services.impl.ms.SmsMsServiceImpl;
+import com.eblju.dsdelivery.dto.fc.SmsDTO;
+import com.eblju.dsdelivery.rest.services.impl.fc.SmsMsServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

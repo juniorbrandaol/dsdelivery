@@ -1,9 +1,6 @@
-import {useEffect, useState,useCallback} from 'react'
+import {useEffect, useState} from 'react'
 import './styles.css';
 import {ReactComponent as Logo} from '../../assets/imgs/logo.svg'
-import {ReactComponent as Login} from '../../assets/imgs/login.svg'
-import {ReactComponent as Logout} from '../../assets/imgs/logout.svg'
-import {ReactComponent as Orders} from '../../assets/imgs/orders.svg'
 import { useNavigate,Link   } from 'react-router-dom';
 
 //API
@@ -11,7 +8,7 @@ import userService from '../../Services/apiServices/Api';
 
 import Storage from '../../Services/storageServices/Storage';
 
-function Navbar(){
+function Navbar(props:any){
 
   const [userName,setUserName] = useState("")
   useEffect(()=>{
@@ -27,43 +24,78 @@ function Navbar(){
       setUserName("")
     })
   }
-  
-  const makeLogout=()=>{
-    Storage.removeToken();
-    setUserName("")
-    navigation("/orders");
+
+  const [openMenu, setOpenMenu] = useState(false)
+
+  // parameter num corresponds to .open-# classes
+  // is assigned when Menu clicked triggering animated dropdown
+  const setClassNames = (num:any) => {
+      const classArr = ["m-item"];
+      if (openMenu) classArr.push(`open-${num}`)
+      return classArr.join(' ')
   }
+
+  // takes route string as parameter
+  const pushToRoute = (route:any) => {
+    if(route==='/orders'){
+      Storage.removeToken();
+      setUserName("")
+    }
+      navigation(route);
+      setOpenMenu(false)
+  }
+
+  const menuDropDown=()=>{
+    return(
+      <div className="Menu">
+            <div className={"m-item m-logo"}
+                onClick={() => setOpenMenu(!openMenu)}>
+                Menu
+            </div>
+            { userName!==""?
+              <> 
+                <div className={setClassNames(1)}
+                   onClick={() => pushToRoute("/orderList")}>
+                   Pedidos
+                </div>
+                <div className={setClassNames(2)}
+                   onClick={() => pushToRoute("/profile")}>
+                   Sua Conta
+                </div>
+                <div className={setClassNames(3)}
+                   onClick={() => pushToRoute("/settings")}>
+                   Sistema
+                </div>
+                <div className={setClassNames(4)}
+                  onClick={() => pushToRoute("/sobre")}>
+                  Sobre
+                </div>
+                <div className={setClassNames(5)}
+                  onClick={() => pushToRoute("/orders")}>
+                  Logout
+                </div>
+              </>
+            :
+              <div className={setClassNames(1)}
+                onClick={() => pushToRoute("/login")}>
+                Login
+              </div>
+            }
+        </div>
+    )
+  }
+
 
   return(
     <>
+    
       <nav className="main-navbar">
-        
         <div className='container_navbar'>
-          <Logo/>
-          <Link to='/Orders' className='logo-text'>DS Delivery</Link>
-        </div> 
-              { 
-              userName!==""?
-              <>
-                <Link to='/orderList' >
-                  <Orders className='make-orders-image' />  
-                </Link>
-                <button className='content_navbar'
-                  onClick={makeLogout}
-                >
-                  <Logout className='make-login-image' />
-                  {userName}
-                </button>
-              </>
-              :
-              <>
-                <Link to='/login' className='content_navbar'>
-                  <Login className='make-login-image' />  
-                </Link>
-              </>
-              }
+          <Logo />
+          <Link className='logo-text' to='/Orders' >DS Delivery</Link> 
+          {menuDropDown()}
+        </div>  
       </nav>
-     
    </>
   )
 }

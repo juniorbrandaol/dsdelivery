@@ -5,14 +5,15 @@ export type User={
 
 export type newUser={
   
-  firstName:string;
-  lastName:string;
-  cpf:string;
-  email:string;
-  password:number;
-  rolles:[
+  firstName?:string;
+  lastName?:string;
+  cpf?:string;
+  email?:string;
+  phone?:string;
+  password?:string
+  rolles?:[
       {
-        id?: number
+       id?:number
       },
      {
       id?:number
