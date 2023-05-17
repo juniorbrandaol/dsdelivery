@@ -67,8 +67,9 @@ function OrderList(){
       {value: 0, label: "PENDING"},
       {value: 1, label: "ACCEPTED"},
       {value: 2, label: "REJECTED"},
-      {value: 3, label: "DISPATCHED"},
-      {value: 4, label: "DELIVERED"},
+      {value: 3, label: "CANCELED"},
+      {value: 4, label: "DISPATCHED"},
+      {value: 5, label: "DELIVERED"},
     ]
     return data
   }

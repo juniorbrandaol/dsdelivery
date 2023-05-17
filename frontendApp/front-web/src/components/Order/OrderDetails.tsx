@@ -64,10 +64,9 @@ function OrderDetails(){
     }
   },[])
 
-  const updateStatus=async()=>{
+  const handleStatusOnPress=async(status:number)=>{
 
-    //status de delivered
-    const statusId=1;
+    const statusId=status;
     const orderId =route.state.order.id
     try{
        await userService.updateOrderStatus(orderId,statusId);
@@ -83,6 +82,37 @@ function OrderDetails(){
 
   }
 
+  const loadStatus=()=>{
+
+      if(orders?.status==='CANCELED' 
+        ||orders?.status==='REJECTED'
+        ||orders?.status==='DELIVERED'){
+        return  
+        }
+      else if(orders?.status==='PENDING' || orders?.status==='ACCEPTED'){
+        return(
+          <button 
+             className='order-details-send-status'
+             onClick={()=>handleStatusOnPress(3)}
+          >CANCELAR O PEDIDO</button> 
+        )
+      }else if(orders?.status==='DISPATCHED'){
+        return(
+          <>
+          <button 
+             className='order-details-send-status'
+             onClick={()=>handleStatusOnPress(5)}
+          >RECEBI O PEDIDO</button> 
+          <button 
+             className='order-details-send-status'
+             onClick={()=>handleStatusOnPress(3)}
+          >CANCELAR O PEDIDO</button> 
+          </>
+        )
+      }  
+
+  }
+
   return(
       <>
        <Navbar />
@@ -93,14 +123,7 @@ function OrderDetails(){
                <div className='order-details-status'>
                  <h3 className='order-details-card-status'>PEDIDO {orders?.status}</h3>
                  {fetchStatusOrder()}
-                 {orders?.status==='DISPATCHED'?
-                    <button 
-                      className='order-details-send-status'
-                      onClick={updateStatus}
-                    >RECEBI O PEDIDO</button>
-                 :
-                 <></>
-                 }
+                 {loadStatus()}
                </div> 
             </div>
             <span className='order-details-steps'>

@@ -131,18 +131,17 @@ function Edit(){
      
 }
 
-const newCode=async()=>{
+ const newCode=async()=>{
   
-  const payload={to:fieldPhone}
-  userServiceFeignClient.sendSms(payload).then((result)=>{
-    if(result){
+   const payload={to:fieldPhone}
+   userServiceFeignClient.sendSms(payload).then((result)=>{
+     if(result){
       toast("Sms reenviado. ") ;
-    }else{
+     }else{
       toast.error("Erro ao tentar reenviar e-mail ") ;
-    }
-  })
-  
-}
+     }
+   })
+  }
   
   return(
      <>
@@ -215,12 +214,16 @@ const newCode=async()=>{
              >
               {codeSent?'CONFIRMAR':'ENVIAR'}
             </button>
-            <div className='newCode'>
-              <h4>Não recebeu seu código?</h4>
-              <button onClick={newCode}>
-                <h4>Obtenha um novo.</h4>
-              </button>
-            </div>
+            {codeSent?
+              <div className='newCode'>
+                <h4>Não recebeu seu código?</h4>
+                <button onClick={newCode}>
+                  <h4>Obtenha um novo.</h4>
+                </button>
+              </div>
+            :
+            <></>  
+            }
           </div>
        </div>
    

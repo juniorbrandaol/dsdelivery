@@ -377,6 +377,7 @@
   letter-spacing: -0.015em;
   color: #FFF;
   border: 0px;
+  margin: 5px;
 }
 
 .order-details-send-status:focus {
